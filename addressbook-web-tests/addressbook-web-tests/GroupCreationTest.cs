@@ -42,7 +42,7 @@ namespace addressbook_web_tests
 
         [Test]
         public void GroupCreationTest1()
-        { 
+        { //test method
             driver.Navigate().GoToUrl(baseURL);
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
