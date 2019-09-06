@@ -11,9 +11,9 @@ namespace addressbook_web_tests
         private string username;
         private string password;
 
-        public AccountData(string Username, string password) {
-            this.username = username;
-            this.password = password;
+        public AccountData(string Username, string Password) {
+            this.username = Username;
+            this.password = Password;
         }
     
             public string Username
@@ -33,11 +33,11 @@ namespace addressbook_web_tests
     {
         get
         {
-            return Password;
+            return password;
         }
         set
         {
-            Password = value;
+            password = value;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace addressbook_web_tests
         public string Name
         {
             get {
-            return name
+                return name;
                     }
             set
             {
@@ -32,7 +32,7 @@ namespace addressbook_web_tests
         {
             get
             {
-            return header
+                return header;
                     }
             set
             {
@@ -43,7 +43,7 @@ namespace addressbook_web_tests
         {
             get
             {
-                return footer
+                return footer;
             }
             set
             {
