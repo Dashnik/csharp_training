@@ -8,16 +8,17 @@ namespace addressbook_web_tests
 {
     class AccountData
     {
-        private string username;
+        private string username; 
         private string password;
 
-        public AccountData(string Username, string Password) {
-            this.username = Username;
-            this.password = Password;
+        public AccountData(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
         }
     
             public string Username
-    {
+            {
         get
         {
             return username;
@@ -27,7 +28,7 @@ namespace addressbook_web_tests
         {
             username = value;
         }
-    }
+            }
 
     public string Password
     {
@@ -35,10 +36,10 @@ namespace addressbook_web_tests
         {
             return password;
         }
-        set
+        set 
         {
             password = value;
         }
     }
 }
-}
+    }
