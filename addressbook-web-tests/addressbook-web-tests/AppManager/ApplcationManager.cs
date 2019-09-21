@@ -13,7 +13,7 @@ namespace addressbook_web_tests
     public class ApplcationManager
     {
 
-        protected IWebDriver driver;
+        public IWebDriver driver;
         protected string baseURL;
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;

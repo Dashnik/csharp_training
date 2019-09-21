@@ -12,19 +12,14 @@ namespace addressbook_web_tests
     public class TestBase : ApplcationManager
     {
 
-        //protected IWebDriver driver;
-        //private StringBuilder verificationErrors;
-        //protected string baseURL;
-        //private bool acceptNextAlert = true;
-        //protected LoginHelper loginHelper;
-        //protected NavigationHelper navigationHelper;
-        //protected GroupHelper groupHelper;
         protected ApplcationManager app;
 
         [SetUp]
         protected void SetupTest()
         {
             app = new ApplcationManager();
+            app.Navi.OpenHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
         }
 
         [TearDown]

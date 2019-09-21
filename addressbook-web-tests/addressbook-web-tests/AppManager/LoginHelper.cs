@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
-    public class LoginHelper : baseHelper
+    public class LoginHelper : BaseHelper
     {
                 public LoginHelper (IWebDriver driver) : base(driver) 
         {

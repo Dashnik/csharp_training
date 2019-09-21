@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace addressbook_web_tests
 {
-   public class ContactHelper : baseHelper
+   public class ContactHelper : BaseHelper
     {
         public ContactHelper(IWebDriver driver) : base(driver)
         {

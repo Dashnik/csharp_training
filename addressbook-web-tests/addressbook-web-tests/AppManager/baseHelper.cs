@@ -8,11 +8,11 @@ using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
-    public class baseHelper
+    public class BaseHelper
     {
         protected IWebDriver driver;
 
-        public baseHelper(IWebDriver driver)
+        public BaseHelper(IWebDriver driver)
         {
             this.driver = driver;
         }

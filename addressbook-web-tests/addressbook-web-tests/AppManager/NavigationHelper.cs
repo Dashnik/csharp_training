@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace addressbook_web_tests
 {
-    public class NavigationHelper : baseHelper
+    public class NavigationHelper : BaseHelper
     {
         private string baseURL;
 
@@ -19,6 +19,7 @@ namespace addressbook_web_tests
         public void Gotothegrouppage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
+            
         }
 
         public void GoToContact()

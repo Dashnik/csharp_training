@@ -7,19 +7,18 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 
 {
-    [TestFixture]
-    public class GroupCreationTest : TestBase
+    
+    public class GroupCreationTests : TestBase
     {
       
         [Test]
-        public void GroupCreationTest1()
+        public void GroupCreationTest()
         {
-            app.Navi.OpenHomePage();
-            app.Auth.Login(new AccountData("admin","secret"));
-            app.Navi.Gotothegrouppage();
-            app.Groups.InitGroupCreation();
-            app.Groups.fillnewroup(new GroupData("aaa"));
-            app.Groups.submitgroupcreation();
+          app.Navi.Gotothegrouppage();
+            app.Groups
+            .NewGroupCreation()
+            .Fillnewroup(new GroupData("aaa"))
+            .Submitgroupcreation();
             app.Auth.LogOut();
         }
 
