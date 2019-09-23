@@ -13,11 +13,17 @@ namespace addressbook_web_tests
         {
         }
 
-        public void FillDataForContact(ContactData contactData)
+        public ContactHelper FillDataForContact(ContactData contactData)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contactData.Firstname);
+            
+            Type(By.Name("firstname"), contactData.Firstname);
+            Type(By.Name("middlename"), contactData.Middlename);
+
+            //        driver.FindElement(By.Name("firstname")).Click();
+            //driver.FindElement(By.Name("firstname")).Clear();
+            //driver.FindElement(By.Name("firstname")).SendKeys(contactData.Firstname);
+
+
             //driver.FindElement(By.Name("middlename")).Clear();
             //driver.FindElement(By.Name("middlename")).SendKeys("tester");
             //driver.FindElement(By.Name("lastname")).Clear();
@@ -37,8 +43,8 @@ namespace addressbook_web_tests
             //driver.FindElement(By.Name("email")).Click();
             //driver.FindElement(By.Name("email")).Clear();
             //driver.FindElement(By.Name("email")).SendKeys("test@tes.com");
-            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
-
+            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
+            return this;
         }
     }
 }

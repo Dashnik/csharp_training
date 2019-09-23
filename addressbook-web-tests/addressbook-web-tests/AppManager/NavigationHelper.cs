@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
@@ -18,6 +19,8 @@ namespace addressbook_web_tests
         }
         public void Gotothegrouppage()
         {
+            if (driver.Url == baseURL + "addressbook/group.php" 
+                && IsElementPresent(By.Name("new")))
             driver.FindElement(By.LinkText("groups")).Click();
             
         }

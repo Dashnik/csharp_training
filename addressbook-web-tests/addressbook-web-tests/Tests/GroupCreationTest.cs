@@ -8,7 +8,7 @@ namespace addressbook_web_tests
 
 {
     
-    public class GroupCreationTests : TestBase
+    public class GroupCreationTests : AuthTestBase
     {
       
         [Test]
@@ -17,7 +17,7 @@ namespace addressbook_web_tests
           app.Navi.Gotothegrouppage();
             app.Groups
             .NewGroupCreation()
-            .Fillnewroup(new GroupData("aaa"))
+            .Fillnewroup(new GroupData("3", "2", "1"))
             .Submitgroupcreation();
             app.Auth.LogOut();
         }

@@ -9,12 +9,12 @@ namespace addressbook_web_tests
     public class ContactData
     {
         private string firstname;
-        private string secondname;
+        private string middlename;
 
-        public ContactData(string firstname, string secondname)
+        public ContactData(string firstname, string middlename)
         {
             this.firstname = firstname;
-            this.secondname = secondname;
+            this.middlename = middlename;
         }
 
         public string Firstname
@@ -24,19 +24,19 @@ namespace addressbook_web_tests
                 return firstname;
             }
             set
-                            {
+            {
                 firstname = value;
             }
         }
-        public string Secondname
+        public string Middlename
         {
             get
             {
-                return secondname;
+                return middlename;
             }
             set
             {
-                secondname = value;
+                middlename = value;
             }        
         }
     }

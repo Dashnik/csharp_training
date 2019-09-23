@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -10,7 +11,7 @@ using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
-    public class ApplcationManager
+    public class ApplicationManager
     {
 
         public IWebDriver driver;
@@ -19,8 +20,9 @@ namespace addressbook_web_tests
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
-  
-        public ApplcationManager()
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+
+        private ApplicationManager()
         {
 
             driver = new FirefoxDriver();
@@ -32,7 +34,7 @@ namespace addressbook_web_tests
             contactHelper = new ContactHelper(driver);
         }
 
-        public void Stop()
+          ~ApplicationManager()
         {
             try
             {
@@ -42,9 +44,8 @@ namespace addressbook_web_tests
             {
                 // Ignore errors if unable to close the browser
             }
-            }
-
-        public LoginHelper Auth
+        }
+              public LoginHelper Auth
         {
             get
             {
@@ -69,9 +70,21 @@ namespace addressbook_web_tests
         {
             get
             {
+
                 return contactHelper;
             }
         }
+        public static ApplicationManager GetInstance()
+        {
+            if (! app.IsValueCreated )
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navi.OpenHomePage();
+                app.Value = newInstance;
 
+
+            }
+            return app.Value;
+        }
     }
 }
