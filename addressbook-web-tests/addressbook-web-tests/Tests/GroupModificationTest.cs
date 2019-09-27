@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase
+    public class ModificationTests : AuthTestBase
     {
 
         [Test]
@@ -18,6 +18,15 @@ namespace addressbook_web_tests
             app.Navi.Gotothegrouppage();
             app.Groups.GroupLine(2);
             app.Groups.EditGroup(new GroupData("AKEdit Name", "AKEdit Header", "AKEdit Footer"));
+        }
+
+        [Test]
+
+        public void ContactModificationTest()
+        {
+            app.Navi.OpenContactPage();
+            app.contacts.ContactLine(2);
+            app.contacts.EditContact(new ContactData("Robert", "Downey"));
         }
     }
 }

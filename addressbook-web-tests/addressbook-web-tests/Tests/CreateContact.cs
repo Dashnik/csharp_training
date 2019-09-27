@@ -15,7 +15,7 @@ namespace addressbook_web_tests
         {
             app.Navi.GoToContact();
             app.contacts.FillDataForContact(new ContactData("Tony", "Stark"));
-            app.Auth.LogOut();
+         //   app.Auth.LogOut();
         }
     }
 }

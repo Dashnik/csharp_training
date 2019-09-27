@@ -19,7 +19,7 @@ namespace addressbook_web_tests
             .NewGroupCreation()
             .Fillnewroup(new GroupData("3", "2", "1"))
             .Submitgroupcreation();
-            app.Auth.LogOut();
+           // app.Auth.LogOut();
         }
 
     }

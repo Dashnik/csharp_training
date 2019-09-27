@@ -28,10 +28,8 @@ namespace addressbook_web_tests
                 Type(By.Name("group_header"), group.Header);
                 Type(By.Name("group_footer"), group.Footer);
                 driver.FindElement(By.Name("update")).Click();
-                return this;
-         
-            
-            
+                return this;                 
+   
         }
 
         public GroupHelper Fillnewroup(GroupData group)

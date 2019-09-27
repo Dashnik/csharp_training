@@ -10,9 +10,9 @@ namespace addressbook_web_tests
     public class LoginHelper : BaseHelper
     {
                 public LoginHelper (IWebDriver driver) : base(driver) 
-        {
+                {
         
-        }
+                }
         public void Login(AccountData account)
         {
             if (IsLoggedIn())
@@ -28,9 +28,8 @@ namespace addressbook_web_tests
             driver.FindElement(By.Id("LoginForm")).Submit();
         }
 
-        public bool IsLoggedIn()
+        public bool IsLoggedIn() 
         {
-
             return IsElementPresent(By.Name("logout"));
         }
 
@@ -43,7 +42,7 @@ namespace addressbook_web_tests
 
 
         public void LogOut()
-        {
+        { 
             if (IsLoggedIn())
             {
                 driver.FindElement(By.LinkText("Logout")).Click();

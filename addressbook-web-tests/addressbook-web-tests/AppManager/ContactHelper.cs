@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace addressbook_web_tests
 {
@@ -19,7 +20,7 @@ namespace addressbook_web_tests
             Type(By.Name("firstname"), contactData.Firstname);
             Type(By.Name("middlename"), contactData.Middlename);
 
-            //        driver.FindElement(By.Name("firstname")).Click();
+            //driver.FindElement(By.Name("firstname")).Click();
             //driver.FindElement(By.Name("firstname")).Clear();
             //driver.FindElement(By.Name("firstname")).SendKeys(contactData.Firstname);
 
@@ -46,5 +47,36 @@ namespace addressbook_web_tests
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
             return this;
         }
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            //System.Windows.Forms.SendKeys.Send("{ENTER}");
+            
+            return this;
+           
+        }
+
+        public ContactHelper ContactLine (int x)
+        {
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
+
+            return this;
+        }
+
+        public ContactHelper EditContact(ContactData contact)
+        {
+            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Tony'])[1]/following::img[2]")).Click();
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middlename);
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+
+
+        }
+
+
+
     }
 }

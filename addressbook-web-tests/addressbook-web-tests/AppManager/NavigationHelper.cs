@@ -19,8 +19,11 @@ namespace addressbook_web_tests
         }
         public void Gotothegrouppage()
         {
-            if (driver.Url == baseURL + "addressbook/group.php" 
+            if (driver.Url == baseURL + "addressbook/group.php"
                 && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
             
         }
@@ -33,5 +36,11 @@ namespace addressbook_web_tests
         {
             driver.Navigate().GoToUrl(baseURL);
         }
+        public void OpenContactPage()
+        {
+          //  driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Groups'])[1]/following::form[1]")).Click();
+            driver.FindElement(By.LinkText("home")).Click();
+        }
+        
     }
 }
