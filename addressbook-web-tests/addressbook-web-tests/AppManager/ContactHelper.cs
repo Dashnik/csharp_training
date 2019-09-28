@@ -10,6 +10,9 @@ namespace addressbook_web_tests
 {
    public class ContactHelper : BaseHelper
     {
+        String selectContact = "(.//*[normalize-space(text()) and normalize-space(.)='Tony'])[1]/following::img[2]";
+        String enterContact = "(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]";
+
         public ContactHelper(IWebDriver driver) : base(driver)
         {
         }
@@ -44,7 +47,7 @@ namespace addressbook_web_tests
             //driver.FindElement(By.Name("email")).Click();
             //driver.FindElement(By.Name("email")).Clear();
             //driver.FindElement(By.Name("email")).SendKeys("test@tes.com");
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
+            driver.FindElement(By.XPath(enterContact)).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -67,7 +70,7 @@ namespace addressbook_web_tests
 
         public ContactHelper EditContact(ContactData contact)
         {
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Tony'])[1]/following::img[2]")).Click();
+            driver.FindElement(By.XPath(selectContact)).Click();
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
             driver.FindElement(By.Name("update")).Click();
