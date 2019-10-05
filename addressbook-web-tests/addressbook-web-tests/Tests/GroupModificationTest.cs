@@ -19,14 +19,5 @@ namespace addressbook_web_tests
             app.Groups.GroupLine(2);
             app.Groups.EditGroup(new GroupData("AKEdit Name", "AKEdit Header", "AKEdit Footer"));
         }
-
-        [Test]
-
-        public void ContactModificationTest()
-        {
-            app.Navi.OpenContactPage();
-            app.contacts.ContactLine(2);
-            app.contacts.EditContact(new ContactData("Robert", "Downey"));
-        }
     }
 }
