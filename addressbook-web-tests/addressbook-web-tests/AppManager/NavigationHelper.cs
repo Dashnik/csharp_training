@@ -17,6 +17,8 @@ namespace addressbook_web_tests
         {
              this.baseURL = baseURL;
         }
+
+
         public void Gotothegrouppage()
         {
             if (driver.Url == baseURL + "addressbook/group.php"
@@ -28,17 +30,31 @@ namespace addressbook_web_tests
             
         }
 
+
         public void GoToContact()
         {
+            if (driver.Url == baseURL + "addressbook/edit.php"
+                && IsElementPresent(By.Name("submit")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("add new")).Click();
         }
-        public void OpenHomePage()
+
+
+        public void OpenBasePage()
         {
-            driver.Navigate().GoToUrl(baseURL);
+             driver.Navigate().GoToUrl(baseURL);
         }
+
+
         public void OpenContactPage()
         {
-          //  driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Groups'])[1]/following::form[1]")).Click();
+            if (driver.Url == baseURL + "addressbook/")
+            {
+                return;
+            }
+
             driver.FindElement(By.LinkText("home")).Click();
         }
         

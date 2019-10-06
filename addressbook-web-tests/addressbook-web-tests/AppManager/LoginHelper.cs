@@ -9,10 +9,10 @@ namespace addressbook_web_tests
 {
     public class LoginHelper : BaseHelper
     {
-                public LoginHelper (IWebDriver driver) : base(driver) 
-                {
-        
-                }
+        public LoginHelper(IWebDriver driver) : base(driver)
+        {
+
+        }
 
         public void Login(AccountData account)
         {
@@ -29,7 +29,7 @@ namespace addressbook_web_tests
             driver.FindElement(By.Id("LoginForm")).Submit();
         }
 
-        public bool IsLoggedIn() 
+        public bool IsLoggedIn()
         {
             return IsElementPresent(By.Name("logout"));
         }
@@ -37,17 +37,20 @@ namespace addressbook_web_tests
         public bool IsLoggedIn(AccountData account)
         {
             return IsLoggedIn()
-                && driver.FindElement(By.Name("Logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
+                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
         }
 
 
 
         public void LogOut()
-        { 
+        {
+
             if (IsLoggedIn())
             {
                 driver.FindElement(By.LinkText("Logout")).Click();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             }
+
         }
 
     }

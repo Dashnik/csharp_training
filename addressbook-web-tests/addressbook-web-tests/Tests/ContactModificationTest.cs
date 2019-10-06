@@ -10,14 +10,14 @@ namespace addressbook_web_tests
     [TestFixture]
     public class ContactModificationTests : AuthTestBase
     {
-       
+
         [Test]
 
         public void ContactModificationTest()
         {
-            app.Navi.OpenContactPage();
-            app.contacts.ContactLine(2);
-            app.contacts.EditContact(new ContactData("Robert", "Downey"));
+           app.Navi.OpenContactPage();
+            app.contacts.ChooseLineForEditing(1);
+           app.contacts.EditContact(new ContactData("Capitan", "America"));
         }
     }
 }

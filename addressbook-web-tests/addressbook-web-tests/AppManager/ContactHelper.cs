@@ -50,6 +50,9 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
+
+     
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -62,15 +65,20 @@ namespace addressbook_web_tests
 
         public ContactHelper ContactLine (int x)
         {
-
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
 
             return this;
         }
 
+        public ContactHelper ChooseLineForEditing(int y)
+            
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + y + "]")).Click();
+            return this;
+        }
+
         public ContactHelper EditContact(ContactData contact)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[2]")).Click();
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
             driver.FindElement(By.Name("update")).Click();
@@ -78,6 +86,8 @@ namespace addressbook_web_tests
 
 
         }
+
+             
 
 
 

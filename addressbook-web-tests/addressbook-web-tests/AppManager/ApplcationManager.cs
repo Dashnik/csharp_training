@@ -34,7 +34,7 @@ namespace addressbook_web_tests
             contactHelper = new ContactHelper(driver);
         }
 
-          ~ApplicationManager()
+        ~ApplicationManager() //деструктор 
         {
             try
             {
@@ -45,12 +45,12 @@ namespace addressbook_web_tests
                 // Ignore errors if unable to close the browser
             }
         }
-              public LoginHelper Auth
+        public LoginHelper Auth
         {
             get
             {
                 return loginHelper;
-                    }
+            }
         }
         public GroupHelper Groups
         {
@@ -76,13 +76,11 @@ namespace addressbook_web_tests
         }
         public static ApplicationManager GetInstance()
         {
-            if (! app.IsValueCreated )
+            if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.Navi.OpenHomePage();
+                newInstance.Navi.OpenBasePage();
                 app.Value = newInstance;
-
-
             }
             return app.Value;
         }
