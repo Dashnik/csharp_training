@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
-   public class ContactHelper : BaseHelper
+    public class ContactHelper : BaseHelper
     {
-        
-     
+
+
 
         public ContactHelper(IWebDriver driver) : base(driver)
         {
@@ -19,7 +20,7 @@ namespace addressbook_web_tests
 
         public ContactHelper FillDataForContact(ContactData contactData)
         {
-            
+
             Type(By.Name("firstname"), contactData.Firstname);
             Type(By.Name("middlename"), contactData.Middlename);
 
@@ -51,31 +52,39 @@ namespace addressbook_web_tests
             return this;
         }
 
-     
+
 
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             //System.Windows.Forms.SendKeys.Send("{ENTER}");
-            
-            return this;
-           
-        }
-
-        public ContactHelper ContactLine (int x)
-        {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
 
             return this;
+
         }
+
+
 
         public ContactHelper ChooseLineForEditing(int y)
-            
+
         {
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+
+            int quantityelements = elements.Count();
+
+            if (quantityelements <= 1) 
+            {
+                driver.FindElement(By.LinkText("add new")).Click();
+                FillDataForContact(new ContactData("Tony", "Stark"));
+                driver.FindElement(By.LinkText("home")).Click();
+               
+            }
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + y + "]")).Click();
             return this;
         }
+
+
 
         public ContactHelper EditContact(ContactData contact)
         {
@@ -87,7 +96,7 @@ namespace addressbook_web_tests
 
         }
 
-             
+
 
 
 

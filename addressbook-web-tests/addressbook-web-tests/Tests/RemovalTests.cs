@@ -23,7 +23,7 @@ namespace addressbook_web_tests
         public void ContactRemovalTest()
         {
             app.Navi.OpenContactPage();
-            app.contacts.ContactLine(2);
+            app.contacts.ChooseLineForEditing(2);
             app.contacts.RemoveContact();
         }
     }

@@ -15,9 +15,9 @@ namespace addressbook_web_tests
 
         public void ContactModificationTest()
         {
-           app.Navi.OpenContactPage();
+            app.Navi.OpenContactPage();
             app.contacts.ChooseLineForEditing(1);
-           app.contacts.EditContact(new ContactData("Capitan", "America"));
+            app.contacts.EditContact(new ContactData("Capitan", "America"));
         }
     }
 }

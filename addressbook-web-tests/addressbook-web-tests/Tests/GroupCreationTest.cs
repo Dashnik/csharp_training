@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace addressbook_web_tests
 
@@ -17,9 +18,9 @@ namespace addressbook_web_tests
           app.Navi.Gotothegrouppage();
             app.Groups
             .NewGroupCreation()
-            .Fillnewroup(new GroupData("3", "2", "1"))
+            .FillnewGroup(new GroupData("3", "2", "1"))
             .Submitgroupcreation();
-           // app.Auth.LogOut();
+            // app.Auth.LogOut();
         }
 
     }

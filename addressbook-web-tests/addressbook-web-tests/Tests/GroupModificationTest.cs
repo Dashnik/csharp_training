@@ -16,8 +16,8 @@ namespace addressbook_web_tests
         public void GroupModificationTest()
         {
             app.Navi.Gotothegrouppage();
-            app.Groups.GroupLine(2);
-            app.Groups.EditGroup(new GroupData("AKEdit Name", "AKEdit Header", "AKEdit Footer"));
+            app.Groups.GroupLine(1);
+            app.Groups.EditGroup(new GroupData("name", "header", "footer"));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace addressbook_web_tests
 {
     public class GroupHelper : BaseHelper
     {
-        
+
         public GroupHelper(IWebDriver driver) : base(driver)
         {
         }
@@ -23,37 +23,51 @@ namespace addressbook_web_tests
 
         public GroupHelper EditGroup(GroupData group)
         {
-                driver.FindElement(By.Name("edit")).Click();
-                Type(By.Name("group_name"), group.Name);
-                Type(By.Name("group_header"), group.Header);
-                Type(By.Name("group_footer"), group.Footer);
-                driver.FindElement(By.Name("update")).Click();
-                return this;                 
-   
+                                 
+            driver.FindElement(By.Name("edit")).Click();
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+
         }
 
-        public GroupHelper Fillnewroup(GroupData group)
+       
+        public GroupHelper FillnewGroup(GroupData group)
         {
             Type(By.Name("group_name"), group.Name);
             Type(By.Name("group_header"), group.Header);
             Type(By.Name("group_footer"), group.Footer);
-             return this;
+            return this;
         }
 
- 
+
 
         public GroupHelper RemoveGroup()
         {
 
-          driver.FindElement(By.Name("delete")).Click();
+            driver.FindElement(By.Name("delete")).Click();
             return this;
         }
 
         public GroupHelper GroupLine(int x)
         {
-         
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])["+ x + "]")).Click();
-           
+
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+
+            int quantityelements = elements.Count();
+
+            if (quantityelements <= 0)
+            {
+                NewGroupCreation();
+                FillnewGroup(new GroupData("testname", "testheader ", "testfooter"));
+                Submitgroupcreation();
+                driver.FindElement(By.LinkText("groups")).Click();
+            }
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
+
             return this;
         }
 
