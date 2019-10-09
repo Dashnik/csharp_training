@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
@@ -16,6 +17,7 @@ namespace addressbook_web_tests
         public void ContactModificationTest()
         {
             app.Navi.OpenContactPage();
+            app.contacts.CheckEmptyContact();
             app.contacts.ChooseLineForEditing(1);
             app.contacts.EditContact(new ContactData("Capitan", "America"));
         }

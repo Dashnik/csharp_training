@@ -18,6 +18,21 @@ namespace addressbook_web_tests
         {
         }
 
+        public ContactHelper CheckEmptyContact()
+        {
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+
+            int quantityelements = elements.Count();
+
+            if (quantityelements <= 1)
+            {
+                driver.FindElement(By.LinkText("add new")).Click();
+                FillDataForContact(new ContactData("Tony", "Stark"));
+                driver.FindElement(By.LinkText("home")).Click();
+            }
+            return this;
+        }
+
         public ContactHelper FillDataForContact(ContactData contactData)
         {
 
@@ -69,17 +84,6 @@ namespace addressbook_web_tests
         public ContactHelper ChooseLineForEditing(int y)
 
         {
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
-
-            int quantityelements = elements.Count();
-
-            if (quantityelements <= 1) 
-            {
-                driver.FindElement(By.LinkText("add new")).Click();
-                FillDataForContact(new ContactData("Tony", "Stark"));
-                driver.FindElement(By.LinkText("home")).Click();
-               
-            }
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + y + "]")).Click();
             return this;
         }

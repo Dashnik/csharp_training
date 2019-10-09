@@ -54,6 +54,23 @@ namespace addressbook_web_tests
         public GroupHelper GroupLine(int x)
         {
 
+           
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
+
+            return this;
+        }
+
+        public GroupHelper NewGroupCreation()
+        {
+            driver.FindElement(By.Name("new")).Click();
+            driver.FindElement(By.Name("group_name")).Click();
+            return this;
+        }
+
+
+        public GroupHelper CheckEmptyGroup()
+        {
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
             int quantityelements = elements.Count();
@@ -66,15 +83,6 @@ namespace addressbook_web_tests
                 driver.FindElement(By.LinkText("groups")).Click();
             }
 
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
-
-            return this;
-        }
-
-        public GroupHelper NewGroupCreation()
-        {
-            driver.FindElement(By.Name("new")).Click();
-            driver.FindElement(By.Name("group_name")).Click();
             return this;
         }
 
