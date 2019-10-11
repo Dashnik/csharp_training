@@ -28,11 +28,12 @@ namespace addressbook_web_tests
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
             foreach (IWebElement element in elements)
             {
-                GroupData group = new GroupData(element.Text);
+                groups.Add(new GroupData(element.Text));
              
             }
             return groups;
         }
+
 
         public GroupHelper EditGroup(GroupData group)
         {
@@ -67,7 +68,7 @@ namespace addressbook_web_tests
         public GroupHelper GroupLine(int x)
         {
 
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" +(x+1) + "]")).Click();
 
             return this;
         }

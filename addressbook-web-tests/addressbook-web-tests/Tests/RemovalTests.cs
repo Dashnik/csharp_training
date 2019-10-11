@@ -9,24 +9,19 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    class RemovalTests : AuthTestBase
+    class RemoveGroup : AuthTestBase
     {
         [Test]
         public void GroupRemovalTest()
         {
             app.Navi.Gotothegrouppage();
+            List<GroupData> oldgroups = app.Groups.GetGroupList();
             app.Groups.CheckEmptyGroup();
-            app.Groups.GroupLine(1)
+            app.Groups.GroupLine(0)
             .RemoveGroup();
-        }
-
-        [Test]
-        public void ContactRemovalTest()
-        {
-            app.Navi.OpenContactPage();
-            app.contacts.CheckEmptyContact();
-            app.contacts.ChooseLineForEditing(1);
-           app.contacts.RemoveContact();
+            List<GroupData> newgroups = app.Groups.GetGroupList();
+            oldgroups.RemoveAt(0);
+            Assert.AreEqual(oldgroups, newgroups);
         }
     }
 }
