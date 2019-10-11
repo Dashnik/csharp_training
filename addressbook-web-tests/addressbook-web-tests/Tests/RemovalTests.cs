@@ -15,16 +15,18 @@ namespace addressbook_web_tests
         public void GroupRemovalTest()
         {
             app.Navi.Gotothegrouppage();
-            app.Groups.GroupLine(2);
-            app.Groups.RemoveGroup();
+            app.Groups.CheckEmptyGroup();
+            app.Groups.GroupLine(1)
+            .RemoveGroup();
         }
 
         [Test]
         public void ContactRemovalTest()
         {
             app.Navi.OpenContactPage();
-            app.contacts.ChooseLineForEditing(2);
-            app.contacts.RemoveContact();
+            app.contacts.CheckEmptyContact();
+            app.contacts.ChooseLineForEditing(1);
+           app.contacts.RemoveContact();
         }
     }
 }

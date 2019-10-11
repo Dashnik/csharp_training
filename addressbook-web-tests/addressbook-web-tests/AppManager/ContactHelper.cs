@@ -72,7 +72,7 @@ namespace addressbook_web_tests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            driver.SwitchTo().Alert().Accept();
+            //driver.SwitchTo().Alert().Accept();
             //System.Windows.Forms.SendKeys.Send("{ENTER}");
 
             return this;
@@ -97,12 +97,6 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("update")).Click();
             return this;
 
-
         }
-
-
-
-
-
     }
 }

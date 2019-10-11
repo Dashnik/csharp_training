@@ -18,7 +18,7 @@ namespace addressbook_web_tests
             app.Navi.Gotothegrouppage();
             app.Groups.CheckEmptyGroup();
             app.Groups.GroupLine(1);
-            app.Groups.EditGroup(new GroupData("name", "header", "footer"));
+            app.Groups.EditGroup(new GroupData("name"));
         }
     }
 }

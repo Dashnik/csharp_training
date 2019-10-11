@@ -11,12 +11,11 @@ namespace addressbook_web_tests
         private string name;
         private string header;
         private string footer;
-        
-        public GroupData(string name, string header, string footer)
+
+        public GroupData(string name)
         {
             this.name = name;
-            this.header = header;
-            this.footer = footer;
+       
         }
 
         public string Name
@@ -35,7 +34,7 @@ namespace addressbook_web_tests
             get
             {
                 return header;
-                    }
+            }
             set
             {
                 header = value;
@@ -53,7 +52,7 @@ namespace addressbook_web_tests
 
             }
         }
-       
+
 
     }
 }

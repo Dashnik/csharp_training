@@ -70,7 +70,6 @@ namespace addressbook_web_tests
         {
             get
             {
-
                 return contactHelper;
             }
         }

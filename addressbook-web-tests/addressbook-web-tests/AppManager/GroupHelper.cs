@@ -21,6 +21,19 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            driver.FindElement(By.LinkText("groups")).Click();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                GroupData group = new GroupData(element.Text);
+             
+            }
+            return groups;
+        }
+
         public GroupHelper EditGroup(GroupData group)
         {
                                  
@@ -54,8 +67,6 @@ namespace addressbook_web_tests
         public GroupHelper GroupLine(int x)
         {
 
-           
-
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + x + "]")).Click();
 
             return this;
@@ -78,7 +89,7 @@ namespace addressbook_web_tests
             if (quantityelements <= 0)
             {
                 NewGroupCreation();
-                FillnewGroup(new GroupData("testname", "testheader ", "testfooter"));
+                FillnewGroup(new GroupData("testname"));
                 Submitgroupcreation();
                 driver.FindElement(By.LinkText("groups")).Click();
             }
