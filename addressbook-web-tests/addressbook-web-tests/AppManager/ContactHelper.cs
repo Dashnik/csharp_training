@@ -69,8 +69,10 @@ namespace addressbook_web_tests
 
 
 
-        public ContactHelper RemoveContact()
+        public ContactHelper RemoveContact(int y)
         {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
+
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             //driver.SwitchTo().Alert().Accept();
             //System.Windows.Forms.SendKeys.Send("{ENTER}");
@@ -80,11 +82,21 @@ namespace addressbook_web_tests
         }
 
 
+        public ContactHelper ChooseLineForRemoving(int index)
+
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+1) +"]/td/input")).Click();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+
 
         public ContactHelper ChooseLineForEditing(int y)
 
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + y + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y+1) + "]")).Click();
             return this;
         }
 

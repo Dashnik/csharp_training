@@ -16,8 +16,7 @@ namespace addressbook_web_tests
         {
             app.Navi.OpenContactPage();
             app.contacts.CheckEmptyContact();
-            app.contacts.ChooseLineForEditing(1);
-            app.contacts.RemoveContact();
+            app.contacts.RemoveContact(0);
         }
     }
 }
