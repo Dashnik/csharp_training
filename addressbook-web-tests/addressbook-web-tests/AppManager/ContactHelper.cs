@@ -33,6 +33,24 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.TagName("tr"));
+            foreach (IWebElement element  in elements.Skip(1))
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                var lastcell = cells.ElementAt(1);
+                var firstcell = cells.ElementAt(2);
+
+                ContactData contact = new ContactData(lastcell.Text, firstcell.Text);
+                contacts.Add(contact);
+                
+            }
+            return contacts;
+        }
+
         public ContactHelper FillDataForContact(ContactData contactData)
         {
 
@@ -85,7 +103,7 @@ namespace addressbook_web_tests
         public ContactHelper ChooseLineForRemoving(int index)
 
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+1) +"]/td/input")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 1) + "]/td/input")).Click();
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             return this;
@@ -96,7 +114,7 @@ namespace addressbook_web_tests
         public ContactHelper ChooseLineForEditing(int y)
 
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
             return this;
         }
 

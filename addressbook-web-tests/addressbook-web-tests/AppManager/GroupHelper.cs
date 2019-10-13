@@ -28,11 +28,29 @@ namespace addressbook_web_tests
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
             foreach (IWebElement element in elements)
             {
-                groups.Add(new GroupData(element.Text));
-             
+                GroupData group = new GroupData(element.Text);
+                groups.Add(group);
             }
             return groups;
         }
+
+        //public GroupHelper CheckEmptyGroup()
+        //{
+        //    ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+
+        //    int quantityelements = elements.Count();
+
+        //    if (quantityelements <= 0)
+        //    {
+        //        NewGroupCreation();
+        //        FillnewGroup(new GroupData("testname"));
+        //        Submitgroupcreation();
+        //        driver.FindElement(By.LinkText("groups")).Click();
+        //    }
+
+        //    return this;
+        //}
+
 
 
         public GroupHelper EditGroup(GroupData group)
