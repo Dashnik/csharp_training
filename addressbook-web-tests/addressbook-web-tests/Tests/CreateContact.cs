@@ -22,6 +22,7 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldcontacts.Count + 1, newcontacts.Count);
             //   app.Auth.LogOut();
         }
+   
     }
 }
     

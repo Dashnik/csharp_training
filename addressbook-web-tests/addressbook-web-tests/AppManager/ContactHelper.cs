@@ -55,7 +55,7 @@ namespace addressbook_web_tests
         {
 
             Type(By.Name("firstname"), contactData.Firstname);
-            Type(By.Name("middlename"), contactData.Middlename);
+            Type(By.Name("middlename"), contactData.Lastname);
 
             //driver.FindElement(By.Name("firstname")).Click();
             //driver.FindElement(By.Name("firstname")).Clear();
@@ -99,6 +99,16 @@ namespace addressbook_web_tests
 
         }
 
+        public ContactHelper RemoveContactMainPage(int index)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+2) +"]/td/input")).Click();     //driver.SwitchTo().Alert().Accept();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+
+            return this;
+
+        }
+
 
         public ContactHelper ChooseLineForRemoving(int index)
 
@@ -123,7 +133,7 @@ namespace addressbook_web_tests
         public ContactHelper EditContact(ContactData contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("middlename"), contact.Lastname);
             driver.FindElement(By.Name("update")).Click();
             return this;
 

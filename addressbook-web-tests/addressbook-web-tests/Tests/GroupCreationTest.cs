@@ -15,7 +15,7 @@ namespace addressbook_web_tests
     {
 
         [Test]
-        public void GroupCreationTest()
+         public void GroupCreationTest()
         {
             app.Navi.Gotothegrouppage();
             List<GroupData> oldgroups = app.Groups.GetGroupList();

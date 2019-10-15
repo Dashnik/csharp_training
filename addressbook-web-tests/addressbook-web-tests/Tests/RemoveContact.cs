@@ -14,9 +14,14 @@ namespace addressbook_web_tests
         [Test]
         public void ContactRemovalTest()
         {
+
             app.Navi.OpenContactPage();
+            List<ContactData> oldcontacts = app.contacts.GetContactList();
             app.contacts.CheckEmptyContact();
-            app.contacts.RemoveContact(0);
+            app.contacts.RemoveContactMainPage(0);
+            List<ContactData> newcontacts = app.contacts.GetContactList();
+            oldcontacts.RemoveAt(0);
+            Assert.AreEqual(oldcontacts, newcontacts);
         }
     }
 }
