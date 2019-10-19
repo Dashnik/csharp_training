@@ -41,8 +41,8 @@ namespace addressbook_web_tests
             foreach (IWebElement element  in elements.Skip(1))
             {
                 IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-                var lastcell = cells.ElementAt(1);
-                var firstcell = cells.ElementAt(2);
+                var lastcell = cells.ElementAt(2);
+                var firstcell = cells.ElementAt(1);
 
                 ContactData contact = new ContactData(lastcell.Text, firstcell.Text);
                 contacts.Add(contact);
@@ -54,7 +54,7 @@ namespace addressbook_web_tests
         {
 
             Type(By.Name("firstname"), contactData.Firstname);
-            Type(By.Name("middlename"), contactData.Lastname);
+            Type(By.Name("lastname"), contactData.Lastname);
 
             //driver.FindElement(By.Name("firstname")).Click();
             //driver.FindElement(By.Name("firstname")).Clear();

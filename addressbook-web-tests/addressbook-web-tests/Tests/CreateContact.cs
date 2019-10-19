@@ -15,12 +15,16 @@ namespace addressbook_web_tests
         [Test]
         public void CreateContact()
         {
+            ContactData contact = new ContactData("Tony", "Stark");
             List<ContactData> oldcontacts = app.contacts.GetContactList();
             app.Navi.GoToContact();
        
-            app.contacts.FillDataForContact(new ContactData("Tony", "Stark"));
+            app.contacts.FillDataForContact(contact);
             List<ContactData> newcontacts = app.contacts.GetContactList();
-            Assert.AreEqual(oldcontacts.Count + 1, newcontacts.Count);
+            oldcontacts.Add(contact);
+            oldcontacts.Sort();
+            newcontacts.Sort();
+            Assert.AreEqual(oldcontacts, newcontacts);
             //   app.Auth.LogOut();
         }
 
