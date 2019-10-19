@@ -41,18 +41,25 @@ namespace addressbook_web_tests
         public override string ToString()
         {
             return "firstname=" + Firstname + "lastname" + Lastname;
-          
+
         }
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
+
+            if (Lastname.CompareTo(other.Lastname) == 0)
             {
-                return 1;
+                if (Firstname.CompareTo(other.Firstname) == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
             }
             return Lastname.CompareTo(other.Lastname);
         }
-
 
         public string Firstname
         {

@@ -17,15 +17,18 @@ namespace addressbook_web_tests
         public void ContactModificationTest()
         {
             app.Navi.OpenContactPage();
-           
-            app.contacts.CheckEmptyContact();
-            app.contacts.ChooseLineForEditing(1);
-            app.contacts.EditContact(new ContactData("Capitan", "America"));
-
             List<ContactData> oldcontacts = app.contacts.GetContactList();
+            ContactData newData = new ContactData("Capitan", "America");
+            app.contacts.CheckEmptyContact();
+            app.contacts.ChooseLineForEditing(0);
+            app.contacts.EditContact(newData);
+
             List<ContactData> newcontacts = app.contacts.GetContactList();
+            oldcontacts[0].Firstname = newData.Firstname;
+            oldcontacts[0].Lastname = newData.Lastname;
 
-
+            oldcontacts.Sort();
+            newcontacts.Sort();
             Assert.AreEqual(oldcontacts, newcontacts);
             
         }
