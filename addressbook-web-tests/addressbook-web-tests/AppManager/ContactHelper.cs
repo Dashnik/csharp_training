@@ -46,7 +46,6 @@ namespace addressbook_web_tests
 
                 ContactData contact = new ContactData(lastcell.Text, firstcell.Text);
                 contacts.Add(contact);
-                
             }
             return contacts;
         }
@@ -138,5 +137,8 @@ namespace addressbook_web_tests
             return this;
 
         }
+
+       
+
     }
 }

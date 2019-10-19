@@ -15,20 +15,22 @@ namespace addressbook_web_tests
     {
 
         [Test]
-         public void GroupCreationTest()
+        public void GroupCreationTest()
         {
             app.Navi.Gotothegrouppage();
             List<GroupData> oldgroups = app.Groups.GetGroupList();
-            
-            app.Groups
-            .NewGroupCreation()
-            .FillnewGroup(new GroupData("3"))//"1","2"))
-                .Submitgroupcreation();
-            // app.Auth.LogOut();
+
+            app.Groups.NewGroupCreation();
+            GroupData group = new GroupData("3");
+            app.Groups.FillnewGroup(group);
+            app.Groups.Submitgroupcreation();
+
             List<GroupData> newgroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldgroups.Count + 1, newgroups.Count);
+            oldgroups.Add(group);
+            oldgroups.Sort();
+            newgroups.Sort();
+            Assert.AreEqual(oldgroups, newgroups);
         }
 
     }
 }
- 

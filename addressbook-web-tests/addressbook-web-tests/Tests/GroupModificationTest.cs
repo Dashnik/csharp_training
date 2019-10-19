@@ -16,12 +16,18 @@ namespace addressbook_web_tests
         public void GroupModificationTest()
         {
             app.Navi.Gotothegrouppage();
+            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            GroupData newData = new GroupData("name");
             app.Groups.CheckEmptyGroup();
             app.Groups.GroupLine(0);
-            app.Groups.EditGroup(new GroupData("name"));
-            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            app.Groups.EditGroup(newData);
+           
             List<GroupData> newgroups = app.Groups.GetGroupList();
+            oldgroups[0].Name = newData.Name;
+            oldgroups.Sort();
+            newgroups.Sort();
             Assert.AreEqual(oldgroups, newgroups);
+          
         }
     }
 }
