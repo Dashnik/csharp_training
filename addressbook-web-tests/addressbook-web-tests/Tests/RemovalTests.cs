@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    class RemoveGroup : AuthTestBase
+    class GroupRemovalTests : AuthTestBase
     {
         [Test]
         public void GroupRemovalTest()
@@ -24,10 +24,18 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldgroups.Count - 1, app.Groups.GetGroupCount());
 
             List<GroupData> newgroups = app.Groups.GetGroupList();
+            GroupData toBeRemoved = oldgroups[0];
             oldgroups.RemoveAt(0);
             oldgroups.Sort();
             newgroups.Sort();
             Assert.AreEqual(oldgroups, newgroups);
+
+            //делаем проверку что идентификатор удаленного элемента на равен идентификатору существующего элемента
+
+            foreach (GroupData group in newgroups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+            }
         }
     }
 }
