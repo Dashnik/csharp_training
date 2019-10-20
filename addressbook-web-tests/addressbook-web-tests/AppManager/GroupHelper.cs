@@ -14,24 +14,37 @@ namespace addressbook_web_tests
         public GroupHelper(IWebDriver driver) : base(driver)
         {
         }
+
         public GroupHelper Submitgroupcreation()
         {
 
             driver.FindElement(By.Name("submit")).Click();
+            groupCache = null;
             return this;
         }
 
+        private List<GroupData> groupCache = null;
+
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-            driver.FindElement(By.LinkText("groups")).Click();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach (IWebElement element in elements)
+            if (groupCache == null)
             {
-                GroupData group = new GroupData(element.Text);
-                groups.Add(group);
+                groupCache = new List<GroupData>();
+                driver.FindElement(By.LinkText("groups")).Click();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+                    GroupData group = new GroupData(element.Text);
+                    groupCache.Add(group);
+                }
             }
-            return groups;
+           return new List<GroupData>(groupCache);
+        }
+
+        internal int GetGroupCount()
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
+            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
         //public GroupHelper CheckEmptyGroup()
@@ -61,6 +74,7 @@ namespace addressbook_web_tests
             Type(By.Name("group_header"), group.Header);
             Type(By.Name("group_footer"), group.Footer);
             driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
             return this;
 
         }
@@ -80,6 +94,7 @@ namespace addressbook_web_tests
         {
 
             driver.FindElement(By.Name("delete")).Click();
+            groupCache = null;
             return this;
         }
 

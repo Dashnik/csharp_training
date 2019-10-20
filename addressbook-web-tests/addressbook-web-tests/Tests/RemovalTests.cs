@@ -19,6 +19,10 @@ namespace addressbook_web_tests
             app.Groups.CheckEmptyGroup();
             app.Groups.GroupLine(0)
             .RemoveGroup();
+            //ниже реализуется быстрая проверка на то, есть ли смысл тратить время на более сложную проверку
+            //это медленная проверка, чтобы в случае ошибки не выполнять быструю
+            Assert.AreEqual(oldgroups.Count - 1, app.Groups.GetGroupCount());
+
             List<GroupData> newgroups = app.Groups.GetGroupList();
             oldgroups.RemoveAt(0);
             oldgroups.Sort();
