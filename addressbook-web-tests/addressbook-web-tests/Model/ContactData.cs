@@ -55,10 +55,10 @@ namespace addressbook_web_tests
                 }
                 else
                 {
-                    return 1;
+                    return Lastname.CompareTo(other.Lastname);
                 }
             }
-            return Lastname.CompareTo(other.Lastname);
+            return 1;
         }
 
         public string Firstname

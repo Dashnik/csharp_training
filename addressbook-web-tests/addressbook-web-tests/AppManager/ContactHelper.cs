@@ -132,7 +132,7 @@ namespace addressbook_web_tests
         public ContactHelper EditContact(ContactData contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("middlename"), contact.Lastname);
+            Type(By.Name("lastname"), contact.Lastname);
             driver.FindElement(By.Name("update")).Click();
             return this;
 
