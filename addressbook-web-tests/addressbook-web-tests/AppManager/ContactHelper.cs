@@ -33,6 +33,9 @@ namespace addressbook_web_tests
             return this;
         }
 
+
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
             driver.FindElement(By.LinkText("home")).Click();
@@ -49,6 +52,30 @@ namespace addressbook_web_tests
             }
             return contacts;
         }
+
+
+        public List<ContactData> GetContactListTest()
+        {
+
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
+                driver.FindElement(By.LinkText("home")).Click();
+                ICollection<IWebElement> elements = driver.FindElements(By.TagName("tr"));
+                foreach (IWebElement element in elements.Skip(1))
+                {
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                    var lastcell = cells.ElementAt(2);
+                    var firstcell = cells.ElementAt(1);
+
+                    ContactData contact = new ContactData(lastcell.Text, firstcell.Text);
+                    contactCache.Add(contact);
+                }
+            }
+           
+            return new List<ContactData>(contactCache);
+        }
+
 
         public ContactHelper FillDataForContact(ContactData contactData)
         {
@@ -81,29 +108,30 @@ namespace addressbook_web_tests
             //driver.FindElement(By.Name("email")).Clear();
             //driver.FindElement(By.Name("email")).SendKeys("test@tes.com");
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
 
 
-        public ContactHelper RemoveContact(int y)
-        {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
+        //public ContactHelper RemoveContact(int y)
+        //{
+        //    driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
 
-            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            //driver.SwitchTo().Alert().Accept();
-            //System.Windows.Forms.SendKeys.Send("{ENTER}");
+        //    driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+        //    //driver.SwitchTo().Alert().Accept();
+        //    //System.Windows.Forms.SendKeys.Send("{ENTER}");
 
-            return this;
+        //    return this;
 
-        }
+        //}
 
         public ContactHelper RemoveContactMainPage(int index)
         {
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+2) +"]/td/input")).Click();     //driver.SwitchTo().Alert().Accept();
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
-
+            contactCache = null;
             return this;
 
         }
@@ -134,6 +162,7 @@ namespace addressbook_web_tests
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("lastname"), contact.Lastname);
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
 
         }

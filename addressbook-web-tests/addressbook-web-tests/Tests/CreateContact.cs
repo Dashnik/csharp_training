@@ -16,11 +16,11 @@ namespace addressbook_web_tests
         public void CreateContact()
         {
             ContactData contact = new ContactData("Tony", "Stark");
-            List<ContactData> oldcontacts = app.contacts.GetContactList();
+            List<ContactData> oldcontacts = app.contacts.GetContactListTest();
             app.Navi.GoToContact();
        
             app.contacts.FillDataForContact(contact);
-            List<ContactData> newcontacts = app.contacts.GetContactList();
+            List<ContactData> newcontacts = app.contacts.GetContactListTest();
             oldcontacts.Add(contact);
             oldcontacts.Sort();
             newcontacts.Sort();
