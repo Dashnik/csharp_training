@@ -30,7 +30,7 @@ namespace addressbook_web_tests
             newgroups.Sort();
             Assert.AreEqual(oldgroups, newgroups);
 
-            //делаем проверку что идентификатор удаленного элемента на равен идентификатору существующего элемента
+            //делаем  проверку что идентификатор удаленного элемента на равен идентификатору существующего элемента
 
             foreach (GroupData group in newgroups)
             {

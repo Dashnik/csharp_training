@@ -47,18 +47,13 @@ namespace addressbook_web_tests
         public int CompareTo(ContactData other)
         {
 
-            if (Lastname.CompareTo(other.Lastname) == 0)
+            if (Lastname.CompareTo(other.Lastname) == 0 && Firstname.CompareTo(other.Firstname) == 0)
             {
-                if (Firstname.CompareTo(other.Firstname) == 0)
                 {
                     return 0;
                 }
-                else
-                {
-                    return Lastname.CompareTo(other.Lastname);
-                }
             }
-            return 1;
+            return Lastname.CompareTo(other.Lastname);
         }
 
         public string Firstname
