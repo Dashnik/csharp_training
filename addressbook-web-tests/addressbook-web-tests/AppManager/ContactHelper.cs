@@ -33,6 +33,79 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public ContactData GetInformationFromProperties(int index)
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            InitContactProperties(index);
+            string alltext = driver.FindElement(By.Id("content")).Text;
+            
+            string[] parts = alltext.Split('\n');
+                    
+
+            string name = parts[0].Substring(0, parts[0].Length - 1);
+                string[] fio = name.Split();
+                string firstname = fio[0];
+                string lastname = fio[1];
+
+                string address = parts[1].Substring(0, parts[1].Length - 1);
+                string mPhone = parts[3].Substring(3).Trim();
+                string wPhone = parts[4].Substring(3);
+
+
+                return new ContactData(firstname, lastname)
+                {
+                    Address = address,
+                    MobilePhone = mPhone,
+                    WorkPhone = wPhone
+                };
+           
+        }
+
+        public void InitContactProperties(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            ChooseLineForEditing(0);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new ContactData(firstname, lastname)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone
+            };
+
+        }
+
+        public ContactData GetInformationFromTable(int index)
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"));
+            string lastname = cells[1].Text;
+            string firstname = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+
+            return new ContactData(firstname, lastname)
+            {
+                Address = address,
+                AllPhones = allPhones,
+            };
+        }
 
         private List<ContactData> contactCache = null;
 
@@ -83,48 +156,10 @@ namespace addressbook_web_tests
             Type(By.Name("firstname"), contactData.Firstname);
             Type(By.Name("lastname"), contactData.Lastname);
 
-            //driver.FindElement(By.Name("firstname")).Click();
-            //driver.FindElement(By.Name("firstname")).Clear();
-            //driver.FindElement(By.Name("firstname")).SendKeys(contactData.Firstname);
-
-
-            //driver.FindElement(By.Name("middlename")).Clear();
-            //driver.FindElement(By.Name("middlename")).SendKeys("tester");
-            //driver.FindElement(By.Name("lastname")).Clear();
-            //driver.FindElement(By.Name("lastname")).SendKeys("test");
-            //driver.FindElement(By.Name("nickname")).Clear();
-            //driver.FindElement(By.Name("nickname")).SendKeys("t");
-            //driver.FindElement(By.Name("company")).Clear();
-            //driver.FindElement(By.Name("company")).SendKeys("foox");
-            //driver.FindElement(By.Name("address")).Clear();
-            //driver.FindElement(By.Name("address")).SendKeys("street");
-            //driver.FindElement(By.Name("home")).Clear();
-            //driver.FindElement(By.Name("home")).SendKeys("5566");
-            //driver.FindElement(By.Name("mobile")).Clear();
-            //driver.FindElement(By.Name("mobile")).SendKeys("4411");
-            //driver.FindElement(By.Name("work")).Clear();
-            //driver.FindElement(By.Name("work")).SendKeys("111");
-            //driver.FindElement(By.Name("email")).Click();
-            //driver.FindElement(By.Name("email")).Clear();
-            //driver.FindElement(By.Name("email")).SendKeys("test@tes.com");
             driver.FindElement(By.Name("submit")).Click();
             contactCache = null;
             return this;
         }
-
-
-
-        //public ContactHelper RemoveContact(int y)
-        //{
-        //    driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
-
-        //    driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-        //    //driver.SwitchTo().Alert().Accept();
-        //    //System.Windows.Forms.SendKeys.Send("{ENTER}");
-
-        //    return this;
-
-        //}
 
         public ContactHelper RemoveContactMainPage(int index)
         {

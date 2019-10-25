@@ -11,11 +11,12 @@ namespace addressbook_web_tests
         private string firstname;
         //private string middlename;
         private string lastname;
+        private string allPhones;
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public bool Equals(ContactData other)
@@ -56,27 +57,37 @@ namespace addressbook_web_tests
             return Lastname.CompareTo(other.Lastname);
         }
 
-        public string Firstname
-        {
+        public string Firstname {get; set;}
+        public string Lastname {get; set;}
+        public string Address { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string AllPhones {
             get
             {
-                return firstname;
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone).Trim();
+                }
             }
             set
             {
-                firstname = value;
+                allPhones = value;
             }
         }
-        public string Lastname
+
+        private string CleanUp(string phone)
         {
-            get
+            if (WorkPhone == null || phone == "")
             {
-                return lastname;
+                return "";
             }
-            set
-            {
-                lastname = value;
-            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
+
+namespace addressbook_web_tests
+{
+
+    [TestFixture]
+    class ContactInformationTests : AuthTestBase
+    {
+
+        [Test]
+        public void TestContactInformation()
+        {
+           
+            ContactData fromTable = app.contacts.GetInformationFromTable(0);
+            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(0);
+           
+            Assert.AreEqual(fromTable, fromForm);
+            Assert.AreEqual(fromTable.Address, fromForm.Address);
+
+            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+            //verification
+        }
+
+        [Test]
+        public void TestContactInformationFromProperties()
+        {
+            ContactData fromProperties = app.contacts.GetInformationFromProperties(2);
+           
+
+            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(2);
+
+            Assert.AreEqual(fromProperties, fromForm);
+           Assert.AreEqual(fromProperties.Address, fromForm.Address);
+            Assert.AreEqual(fromProperties.WorkPhone, fromForm.WorkPhone);
+            Assert.AreEqual(fromProperties.MobilePhone, fromForm.MobilePhone);
+            
+        }
+    }
+}
