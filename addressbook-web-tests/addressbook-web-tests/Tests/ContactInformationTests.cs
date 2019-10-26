@@ -29,10 +29,10 @@ namespace addressbook_web_tests
         [Test]
         public void TestContactInformationFromProperties()
         {
-            ContactData fromProperties = app.contacts.GetInformationFromProperties(2);
+            ContactData fromProperties = app.contacts.GetInformationFromProperties(0);
            
 
-            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(2);
+            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(0);
 
             Assert.AreEqual(fromProperties, fromForm);
            Assert.AreEqual(fromProperties.Address, fromForm.Address);
