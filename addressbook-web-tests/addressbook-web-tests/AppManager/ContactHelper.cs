@@ -80,12 +80,19 @@ namespace addressbook_web_tests
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
 
+            string mail = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string mail2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string mail3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
             return new ContactData(firstname, lastname)
             {
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone = workPhone
+                WorkPhone = workPhone,
+                Mail= mail,
+                Mail2= mail2,
+                Mail3 = mail3
             };
 
         }
@@ -98,11 +105,13 @@ namespace addressbook_web_tests
             string lastname = cells[1].Text;
             string firstname = cells[2].Text;
             string address = cells[3].Text;
+            string allmail = cells[4].Text;
             string allPhones = cells[5].Text;
 
             return new ContactData(firstname, lastname)
             {
                 Address = address,
+                AllMails = allmail,
                 AllPhones = allPhones,
             };
         }

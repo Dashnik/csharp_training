@@ -10,6 +10,7 @@ namespace addressbook_web_tests
     {
      
         private string allPhones;
+        private string allMails;
 
         public ContactData(string firstname, string lastname)
         {
@@ -54,13 +55,20 @@ namespace addressbook_web_tests
             }
             return Lastname.CompareTo(other.Lastname);
         }
-
+        
+        //Объявление автоматические свойства  (они обеспечивают простой доступ к полям классов)
         public string Firstname {get; set;}
         public string Lastname {get; set;}
         public string Address { get; set; }
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
+        public string Mail { get; set; }
+        public string Mail2 { get; set; }
+        public string Mail3 { get; set; }
+
+
+        //обычное свойство
         public string AllPhones {
             get
             {
@@ -76,6 +84,25 @@ namespace addressbook_web_tests
             set
             {
                 allPhones = value;
+            }
+        }
+
+        public string AllMails
+        {
+            get
+            {
+                if (allMails != null)
+                {
+                    return allMails;
+                }
+                else
+                {
+                    return CleanUp(Mail) + CleanUp(Mail2) + CleanUp(Mail3).Trim();
+                }
+            }
+            set
+            {
+                allMails = value;
             }
         }
 
