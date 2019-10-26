@@ -22,6 +22,7 @@ namespace addressbook_web_tests
 
         public static Random rnd = new Random();
 
+        //метод который генерирует случайные символы
         public static string GenerateRandomString(int max)
         {
            

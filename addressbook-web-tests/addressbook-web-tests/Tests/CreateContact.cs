@@ -13,17 +13,19 @@ namespace addressbook_web_tests
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            List<ContactData> contact = new List<ContactData>();
+            List<ContactData> contacts = new List<ContactData>();
             for (int i = 0; i < 5; i++)
             {
-                contact.Add(new ContactData(GenerateRandomString(30))
+
+                // contacts.Add(new ContactData(GenerateRandomString(30))
+                contacts.Add(new ContactData("Firstname", "Lastname")
                 {
                     Firstname = GenerateRandomString(100),
-                    Lastname = GenerateRandomString(100)
+                 Lastname = GenerateRandomString(10)
                 });
             }
 
-            return contact;
+            return contacts;
         }
 
         [Test,TestCaseSource("RandomContactDataProvider")]
