@@ -29,16 +29,13 @@ namespace addressbook_web_tests
         [Test]
         public void TestContactInformationFromProperties()
         {
-            ContactData fromProperties = app.contacts.GetInformationFromProperties(0);
+            String fromProperties = app.contacts.GetInformationFromProperties(1);
            
 
-            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(0);
+            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(1);
 
-            Assert.AreEqual(fromProperties, fromForm);
-           Assert.AreEqual(fromProperties.Address, fromForm.Address);
-            Assert.AreEqual(fromProperties.WorkPhone, fromForm.WorkPhone);
-            Assert.AreEqual(fromProperties.MobilePhone, fromForm.MobilePhone);
-            
+           Assert.AreEqual(fromProperties,fromForm.SuperFields);
+                            
         }
     }
 }

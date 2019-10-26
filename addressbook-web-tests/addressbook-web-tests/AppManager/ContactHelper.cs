@@ -33,32 +33,14 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public ContactData GetInformationFromProperties(int index)
+        public string  GetInformationFromProperties(int index)
         {
             driver.FindElement(By.LinkText("home")).Click();
             InitContactProperties(index);
             string alltext = driver.FindElement(By.Id("content")).Text;
-            
-            string[] parts = alltext.Split('\n');
+          
+           return alltext.Replace("M:", "").Replace("W:", "").Replace("H:", "").Replace("\r\n","").Replace(" ",""); 
                     
-
-            string name = parts[0].Substring(0, parts[0].Length - 1);
-                string[] fio = name.Split();
-                string firstname = fio[0];
-                string lastname = fio[1];
-
-                string address = parts[1].Substring(0, parts[1].Length - 1);
-                string mPhone = parts[3].Substring(3).Trim();
-                string wPhone = parts[4].Substring(3);
-
-
-                return new ContactData(firstname, lastname)
-                {
-                    Address = address,
-                    MobilePhone = mPhone,
-                    WorkPhone = wPhone
-                };
-           
         }
 
         public void InitContactProperties(int index)
@@ -71,18 +53,22 @@ namespace addressbook_web_tests
         public ContactData GetContactInformationFromEditForm(int index)
         {
             driver.FindElement(By.LinkText("home")).Click();
-            ChooseLineForEditing(0);
+            ChooseLineForEditing(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
 
-            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
-            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-
             string mail = driver.FindElement(By.Name("email")).GetAttribute("value");
             string mail2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string mail3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+           
+          
+
+
 
             return new ContactData(firstname, lastname)
             {

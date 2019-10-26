@@ -11,6 +11,7 @@ namespace addressbook_web_tests
      
         private string allPhones;
         private string allMails;
+        private string superfields;
 
         public ContactData(string firstname, string lastname)
         {
@@ -84,6 +85,25 @@ namespace addressbook_web_tests
             set
             {
                 allPhones = value;
+            }
+        }
+        public string SuperFields
+        {
+            get
+            {
+                if (superfields != null)
+                {
+                    return superfields;
+                }
+                else
+                {
+                    return Firstname + Lastname + Address + HomePhone + MobilePhone + WorkPhone + Mail + Mail2 + Mail3;
+
+                }
+            }
+            set
+            {
+                superfields = value;
             }
         }
 
