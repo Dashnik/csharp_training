@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO; // этот юзинг позволяет работать с файлами и вызывать метод File
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -28,7 +29,23 @@ namespace addressbook_web_tests
             return groups;
         }
 
-                [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<GroupData> GroupDataFromFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                groups.Add(new GroupData(parts[0])
+                    {
+                         Header = parts[1],
+                         Footer = parts[2]
+                });
+            }
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromFile")]
         public void GroupCreationTest(GroupData group)
         {
             app.Navi.Gotothegrouppage();
@@ -40,7 +57,7 @@ namespace addressbook_web_tests
 
             //ниже реализуется быстрая проверка на то, есть ли смысл тратить время на более сложную проверку
             //это медленная проверка, чтобы в случае ошибки не выполнять быструю
-            Assert.AreEqual(oldgroups.Count+1, app.Groups.GetGroupCount());
+            Assert.AreEqual(oldgroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newgroups = app.Groups.GetGroupList();
             oldgroups.Add(group);
