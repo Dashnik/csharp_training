@@ -13,10 +13,15 @@ namespace addressbook_web_tests
         private string allMails;
         private string superfields;
 
+        public ContactData()
+        {
+        }
+
+
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
-            Lastname = lastname;
+           Lastname = lastname;
         }
 
         public bool Equals(ContactData other)
@@ -96,9 +101,9 @@ namespace addressbook_web_tests
                     return superfields;
                 }
                 else
-                {
-                    return Firstname + Lastname + Address + HomePhone + MobilePhone + WorkPhone + Mail + Mail2 + Mail3;
-
+                {                   
+                    return Firstname +" "+ PasteIn(Lastname) + PasteIn(Address) + "\r\n" + PasteIn(HomePhone).Insert(0, "H: ") + 
+                        PasteIn(MobilePhone).Insert(0, "M: ") + PasteIn(WorkPhone).Insert(0,"W: ")+ "\r\n" + PasteIn(Mail) + PasteIn(Mail2) + Mail3.Trim();
                 }
             }
             set
@@ -106,6 +111,16 @@ namespace addressbook_web_tests
                 superfields = value;
             }
         }
+
+        private string PasteIn(string symbols)
+        {
+            if (symbols == null || symbols == "")
+            {
+                return "";
+            }
+            return symbols + "\r\n";
+        }
+
 
         public string AllMails
         {
@@ -125,6 +140,8 @@ namespace addressbook_web_tests
                 allMails = value;
             }
         }
+
+       
 
         private string CleanUp(string phone)
         {

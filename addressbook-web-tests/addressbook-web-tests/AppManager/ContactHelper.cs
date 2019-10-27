@@ -38,8 +38,8 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("home")).Click();
             InitContactProperties(index);
             string alltext = driver.FindElement(By.Id("content")).Text;
-          
-           return alltext.Replace("M:", "").Replace("W:", "").Replace("H:", "").Replace("\r\n","").Replace(" ",""); 
+
+            return alltext;//alltext.Replace("M:", "").Replace("W:", "").Replace("H:", "").Replace("\r\n","").Replace(" ",""); 
                     
         }
 
@@ -64,12 +64,8 @@ namespace addressbook_web_tests
 
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-           
-          
-
-
-
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");                 
+                        
             return new ContactData(firstname, lastname)
             {
                 Address = address,

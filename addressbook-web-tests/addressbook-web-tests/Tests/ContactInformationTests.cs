@@ -29,11 +29,12 @@ namespace addressbook_web_tests
         [Test]
         public void TestContactInformationFromProperties()
         {
-            String fromProperties = app.contacts.GetInformationFromProperties(1);
+            String fromProperties = app.contacts.GetInformationFromProperties(0);
            
+            
+            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(0);
 
-            ContactData fromForm = app.contacts.GetContactInformationFromEditForm(1);
-
+            string test = fromForm.SuperFields;
            Assert.AreEqual(fromProperties,fromForm.SuperFields);
                             
         }

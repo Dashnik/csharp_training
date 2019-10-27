@@ -5,6 +5,8 @@ using System.Threading;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Collections;
+using System.IO; // этот юзинг позволяет работать с файлами и вызывать метод File
+
 
 namespace addressbook_web_tests 
 {
@@ -28,7 +30,23 @@ namespace addressbook_web_tests
             return contacts;
         }
 
-        [Test,TestCaseSource("RandomContactDataProvider")]
+        //public static IEnumerable<ContactData> ContactDataFromFile()
+        //{
+        //    List<ContactData> contacts = new List<ContactData>();
+        //    string[] lines = File.ReadAllLines(@"contacts.csv");
+        //    foreach (string l in lines)
+        //    {
+        //        string[] parts = l.Split(',');
+        //        contacts.Add(new ContactData("Firstname", "Lastname")
+        //        {
+        //            Firstname = parts[1],
+        //             Lastname = parts[2]
+        //        });
+        //    }
+        //    return contacts;
+        //}
+
+        [Test,TestCaseSource("ContactDataFromFile")]//("RandomContactDataProvider")]
         public void CreateContact(ContactData contact)
         {
            
