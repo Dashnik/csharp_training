@@ -21,7 +21,7 @@ namespace addressbook_web_tests
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
-           Lastname = lastname;
+            Lastname = lastname;
         }
 
         public bool Equals(ContactData other)

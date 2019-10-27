@@ -12,10 +12,10 @@ namespace addressbook_web_tests
         public GroupData()
         {            
         }
+
         public GroupData(string name)
         {
              Name = name;
-
         }
 
         public bool Equals(GroupData other)

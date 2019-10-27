@@ -12,29 +12,12 @@ using addressbook_web_tests; //для того чтобы методы из др
 namespace addressbook_test_data_generators
 {
     class Program
-    {
-
-        //this method was made for scv file
-        //static void Main(string[] args)
-        //{
-        //    int count = Convert.ToInt32(args[0]);
-        //    StreamWriter writer = new StreamWriter(args[1]);
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        writer.WriteLine(String.Format("${0},${1},${2}",
-        //          TestBase.GenerateRandomString(10),
-        //          TestBase.GenerateRandomString(10),
-        //          TestBase.GenerateRandomString(10)));
-        //    }
-        //    writer.Close();
-        //}
-
-        //this method was made for XML file
+    {                     
         static void Main(string[] args)
         {
             int count = Convert.ToInt32(args[0]);
             StreamWriter writer = new StreamWriter(args[1]);
-            string format = args[3];
+            string format = args[2];
 
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i++)
@@ -43,7 +26,6 @@ namespace addressbook_test_data_generators
                 {
                     Header = TestBase.GenerateRandomString(100),
                     Footer = TestBase.GenerateRandomString(100)
-
                 });
             }
             if (format == "csv")
@@ -56,7 +38,7 @@ namespace addressbook_test_data_generators
             }
             else
             {
-                System.Console.Out.Write("Unrecognized format" + format);
+                Console.Out.Write("Unrecognized format " + format);
             }
            
             writer.Close();
