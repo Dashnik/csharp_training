@@ -11,9 +11,6 @@ namespace addressbook_web_tests
 {
     public class ContactHelper : BaseHelper
     {
-
-
-
         public ContactHelper(IWebDriver driver) : base(driver)
         {
         }

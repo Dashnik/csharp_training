@@ -16,15 +16,22 @@ namespace addressbook_test_data_generators
     {                     
         static void Main(string[] args)
         {
-            //string typeData = args[0];
-            int count = Convert.ToInt32(args[0]);
-            StreamWriter writer = new StreamWriter(args[1]);
-            //string fileName = args[2];
-            string format = args[2];
+            string typeData = args[0];
+            int count = Convert.ToInt32(args[1]);
+            string fileName = args[2];
+            string format = args[3];
            
+
+
             List<GroupData> groups = new List<GroupData>();
+          
             for (int i = 0; i < count; i++)
             {
+                //GroupData gt1 = new GroupData(TestBase.GenerateRandomString(10));
+                //gt1.Header = TestBase.GenerateRandomString(100);
+                //gt1.Footer = TestBase.GenerateRandomString(100);
+                //groups.Add(gt1); эта запись эквивалента записи ниже
+
                 groups.Add(new GroupData(TestBase.GenerateRandomString(10))
                 {
                     Header = TestBase.GenerateRandomString(100),
@@ -32,19 +39,19 @@ namespace addressbook_test_data_generators
                 });
             }
 
-            List<ContactData> contacts = new List<ContactData>();
+             List<ContactData> contacts = new List<ContactData>();
+          
             for (int i = 0; i < count; i++)
-            {
-                
-               // contacts.Add(new ContactData(TestBase.GenerateRandomString(10))   row isn't worked
-               contacts.Add(new ContactData("Firstname", "Lastname")
+            {                               
+               contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
                {
-                    Lastname = TestBase.GenerateRandomString(10),
-                    Address = TestBase.GenerateRandomString(10),
-                });
+                    Address = TestBase.GenerateRandomString(10)                   
+               });
 
             }
-           
+            if (typeData == "groups")
+            {
+                StreamWriter writer = new StreamWriter(args[2]);
 
                 if (format == "csv")
                 {
@@ -62,8 +69,28 @@ namespace addressbook_test_data_generators
                 {
                     Console.Out.Write("Unrecognized format " + format);
                 }
-                writer.Close();                  
-                      
+                writer.Close();
+            }
+          
+
+            if ( typeData == "contacts" )
+            {
+                StreamWriter writer = new StreamWriter(args[2]);
+                if (format == "xml")
+                {
+                    writeContactsToXmlFile(contacts, writer);
+                }
+                else if (format == "json")
+                {
+                    writeContactsToJsonFile(contacts, writer);
+                }
+                else
+                {
+                    Console.Out.Write("Unrecognized format: " + format);
+                }
+                writer.Close();
+            }
+            
         }
 
         static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
@@ -88,6 +115,11 @@ namespace addressbook_test_data_generators
         static void writeGroupToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(groups,Newtonsoft.Json.Formatting.Indented));
+        }
+
+        static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
     }
 }
