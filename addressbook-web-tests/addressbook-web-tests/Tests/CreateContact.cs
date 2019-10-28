@@ -18,10 +18,8 @@ namespace addressbook_web_tests
             List<ContactData> contacts = new List<ContactData>();
             for (int i = 0; i < 5; i++)
             {
-                //ContactData test = new ContactData();
-//                contacts.Add()
-                 //contacts.Add(new ContactData(GenerateRandomString(30))
-                contacts.Add(new ContactData("Firstname", "Lastname")
+               //  contacts.Add(new ContactData(GenerateRandomString(30))
+                contacts.Add(new ContactData("Firstname", "Lastname") //row is worked
                 {
                     Firstname = GenerateRandomString(100),
                  Lastname = GenerateRandomString(10)

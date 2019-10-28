@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;// для того чтобы использовать метод StreamWriter нужно добавить этот using 
 using System.Collections.Generic;
+using Newtonsoft.Json;//юзинг для того чтобы можно было использовать json
 using System.Linq;
 using System.Text;
 using System.Xml;///этот юзинг нужен для того чтобы работать с xml
@@ -15,10 +16,12 @@ namespace addressbook_test_data_generators
     {                     
         static void Main(string[] args)
         {
+            //string typeData = args[0];
             int count = Convert.ToInt32(args[0]);
             StreamWriter writer = new StreamWriter(args[1]);
+            //string fileName = args[2];
             string format = args[2];
-
+           
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i++)
             {
@@ -28,21 +31,41 @@ namespace addressbook_test_data_generators
                     Footer = TestBase.GenerateRandomString(100)
                 });
             }
-            if (format == "csv")
+
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < count; i++)
             {
-                writeGroupsToCsvFile(groups, writer);
-            }
-            else if (format == "xml")
-            {
-                writeGroupsToXmlFile(groups, writer);
-            }
-            else
-            {
-                Console.Out.Write("Unrecognized format " + format);
+                
+               // contacts.Add(new ContactData(TestBase.GenerateRandomString(10))   row isn't worked
+               contacts.Add(new ContactData("Firstname", "Lastname")
+               {
+                    Lastname = TestBase.GenerateRandomString(10),
+                    Address = TestBase.GenerateRandomString(10),
+                });
+
             }
            
-            writer.Close();
+
+                if (format == "csv")
+                {
+                    writeGroupsToCsvFile(groups, writer);
+                }
+                else if (format == "xml")
+                {
+                    writeGroupsToXmlFile(groups, writer);
+                }
+                else if (format == "json")
+                {
+                    writeGroupToJsonFile(groups, writer);
+                }
+                else
+                {
+                    Console.Out.Write("Unrecognized format " + format);
+                }
+                writer.Close();                  
+                      
         }
+
         static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
         {
             foreach (GroupData group in groups)
@@ -57,5 +80,14 @@ namespace addressbook_test_data_generators
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
         }
 
+        static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+        }
+
+        static void writeGroupToJsonFile(List<GroupData> groups, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(groups,Newtonsoft.Json.Formatting.Indented));
+        }
     }
 }

@@ -17,7 +17,6 @@ namespace addressbook_web_tests
         {
         }
 
-
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;

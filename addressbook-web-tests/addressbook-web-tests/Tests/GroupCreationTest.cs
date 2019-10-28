@@ -6,6 +6,7 @@ using System.Threading;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Newtonsoft.Json;//юзинг для того чтобы можно было использовать json
 using System.Linq;
 
 namespace addressbook_web_tests
@@ -52,7 +53,13 @@ namespace addressbook_web_tests
             
         }
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             app.Navi.Gotothegrouppage();

@@ -32,7 +32,7 @@ namespace addressbook_web_tests
             }
             return this;
         }
-
+         
         public string  GetInformationFromProperties(int index)
         {
             driver.FindElement(By.LinkText("home")).Click();
