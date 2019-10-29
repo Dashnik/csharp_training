@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;//позволяет работать с таблицами в  БД
 using System.Text;
 using System.Threading.Tasks;
 using LinqToDB.Mapping;// позволяет работать с аттрибутом [Table]

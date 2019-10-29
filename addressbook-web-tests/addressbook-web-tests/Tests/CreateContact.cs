@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;//позволяет работать с таблицами в  БД
 using System.Collections;
 using System.IO; // этот юзинг позволяет работать с файлами и вызывать метод File
 using System.Xml.Serialization;//юзинг позволяет работать с xml
@@ -59,7 +60,20 @@ namespace addressbook_web_tests
         }
 
 
-      
+        [Test]
+        public void TestDbConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactData> fromUI = app.contacts.GetContactListTest();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<ContactData> fromDb = ContactData.GetAll();                
+            
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+        }
        
     }
 }

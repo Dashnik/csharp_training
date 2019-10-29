@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;//позволяет работать с таблицами в  БД
 using System.Text;
+using LinqToDB.Mapping; //юзинг для того чтобы использовать [Table] атрибут
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace addressbook_web_tests
 {
+    [Table(Name = "addressbook")]//привязываем таблицу 
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
      
@@ -61,16 +63,33 @@ namespace addressbook_web_tests
             }
             return Lastname.CompareTo(other.Lastname);
         }
-        
+
         //Объявление автоматические свойства  (они обеспечивают простой доступ к полям классов)
+        [Column(Name = "firstname")]//производим привязку к столбцу
         public string Firstname {get; set;}
+
+        [Column(Name = "lastname")]//производим привязку к столбцу
         public string Lastname {get; set;}
+
+        [Column(Name = "address")]//производим привязку к столбцу
         public string Address { get; set; }
+
+        [Column(Name = "home")]//производим привязку к столбцу
         public string HomePhone { get; set; }
+
+        [Column(Name = "mobile")]//производим привязку к столбцу
         public string MobilePhone { get; set; }
+
+        [Column(Name = "work")]//производим привязку к столбцу
         public string WorkPhone { get; set; }
-        public string Mail { get; set; } 
+
+        [Column(Name = "email")]//производим привязку к столбцу
+        public string Mail { get; set; }
+
+        [Column(Name = "email2")]//производим привязку к столбцу
         public string Mail2 { get; set; }
+
+        [Column(Name = "email3")]//производим привязку к столбцу
         public string Mail3 { get; set; }
 
 
@@ -152,6 +171,14 @@ namespace addressbook_web_tests
                 return "";
             }
             return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Contacts select g).ToList();
+            }
         }
     }
 }
