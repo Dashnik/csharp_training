@@ -151,32 +151,43 @@ namespace addressbook_web_tests
 
         public ContactHelper RemoveContactMainPage(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+2) +"]/td/input")).Click();     //driver.SwitchTo().Alert().Accept();
+            ChooseContactOnMainPage(index);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             contactCache = null;
             return this;
-
         }
 
-
-        public ContactHelper ChooseLineForRemoving(int index)
-
+        public ContactHelper RemoveContactMainPage(ContactData contacts)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 1) + "]/td/input")).Click();
+            ChooseContactOnMainPage(contacts.Id);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            contactCache = null;
             return this;
         }
 
+        public ContactHelper ChooseContactOnMainPage(int index)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td/input")).Click();     //driver.SwitchTo().Alert().Accept();
+            return this;
+        }
 
+        public ContactHelper ChooseContactOnMainPage(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
 
+        //this case for modification contac test and get old and new data
         public ContactHelper ChooseLineForEditing(int y)
 
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
             return this;
         }
+
+        
 
 
 

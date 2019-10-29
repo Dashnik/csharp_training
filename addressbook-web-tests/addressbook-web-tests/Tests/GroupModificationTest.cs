@@ -20,7 +20,7 @@ namespace addressbook_web_tests
             GroupData oldData = oldgroups[0];
             GroupData newData = new GroupData("name");
             app.Groups.CheckEmptyGroup();
-            app.Groups.GroupLine(0);
+            app.Groups.ChooseGroupLine(0);
             app.Groups.EditGroup(newData);
             //ниже реализуется быстрая проверка на то, есть ли смысл тратить время на более сложную проверку
             //это медленная проверка, чтобы в случае ошибки не выполнять быструю

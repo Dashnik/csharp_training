@@ -93,6 +93,11 @@ namespace addressbook_web_tests
         public string Mail3 { get; set; }
 
 
+        [Column(Name = "id"), PrimaryKey, Identity]//производим привязку к столбцу
+        public string Id { get; set; }
+
+
+
         //обычное свойство
         public string AllPhones {
             get

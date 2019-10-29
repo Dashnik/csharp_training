@@ -25,6 +25,8 @@ namespace addressbook_web_tests
 
         private List<GroupData> groupCache = null;
 
+        
+
         public List<GroupData> GetGroupList()
         {
             if (groupCache == null)
@@ -92,18 +94,35 @@ namespace addressbook_web_tests
 
 
 
-        public GroupHelper RemoveGroup()
-        {
-
+        public GroupHelper RemoveGroup(int x)
+        {            
+            ChooseGroupLine(x);
             driver.FindElement(By.Name("delete")).Click();
             groupCache = null;
             return this;
         }
 
-        public GroupHelper GroupLine(int x)
+        public GroupHelper RemoveGroup(GroupData groups)
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
+            ChooseGroupLine(groups.Id);
+            driver.FindElement(By.Name("delete")).Click();
+            groupCache = null;
+            return this;
+        }
+
+        public GroupHelper ChooseGroupLine(int x)
         {
 
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (x + 1) + "]")).Click();
+
+            return this;
+        }
+
+        public GroupHelper ChooseGroupLine(String id)
+        {
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
 
             return this;
         }
