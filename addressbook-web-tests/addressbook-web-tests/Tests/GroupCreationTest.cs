@@ -80,5 +80,22 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldgroups, newgroups);
         }
 
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+             start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+                //AddressBookDB db = new AddressBookDB();
+                //List<GroupData> fromDb = (from g in db.Groups select g).ToList();
+                //db.Close();
+                end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+        }
+
     }
 }
