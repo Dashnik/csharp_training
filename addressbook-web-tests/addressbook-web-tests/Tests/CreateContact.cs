@@ -42,7 +42,7 @@ namespace addressbook_web_tests
         }
 
 
-        [Test,TestCaseSource("RandomContactDataProvider")]
+        [Test,TestCaseSource("ContactDataFromJsonFile")]
         public void CreateContact(ContactData contact)
         {
            

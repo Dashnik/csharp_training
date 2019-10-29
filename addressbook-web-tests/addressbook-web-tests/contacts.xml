@@ -1,1 +1,27 @@
-﻿
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <Firstname>7</Firstname>
+    <Lastname>\S?0!@F</Lastname>
+    <Address>57A,:,*GE</Address>
+    <AllPhones />
+    <SuperFields>7 \S?0!@F
+57A,:,*GE
+
+H: M: W: 
+</SuperFields>
+    <AllMails />
+  </ContactData>
+  <ContactData>
+    <Firstname>I1J8</Firstname>
+    <Lastname>&amp;:JN$HX-</Lastname>
+    <Address>N5XSEND+</Address>
+    <AllPhones />
+    <SuperFields>I1J8 &amp;:JN$HX-
+N5XSEND+
+
+H: M: W: 
+</SuperFields>
+    <AllMails />
+  </ContactData>
+</ArrayOfContactData>

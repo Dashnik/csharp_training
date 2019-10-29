@@ -16,13 +16,13 @@ namespace addressbook_test_data_generators
     {                     
         static void Main(string[] args)
         {
+
+
             string typeData = args[0];
             int count = Convert.ToInt32(args[1]);
             string fileName = args[2];
             string format = args[3];
            
-
-
             List<GroupData> groups = new List<GroupData>();
           
             for (int i = 0; i < count; i++)
@@ -76,19 +76,21 @@ namespace addressbook_test_data_generators
             if ( typeData == "contacts" )
             {
                 StreamWriter writer = new StreamWriter(args[2]);
-                if (format == "xml")
                 {
-                    writeContactsToXmlFile(contacts, writer);
+                    if (format == "xml")
+                    {
+                        writeContactsToXmlFile(contacts, writer);
+                    }
+                    else if (format == "json")
+                    {
+                        writeContactsToJsonFile(contacts, writer);
+                    }
+                    else
+                    {
+                        Console.Out.Write("Unrecognized format: " + format);
+                    }
+                    writer.Close();
                 }
-                else if (format == "json")
-                {
-                    writeContactsToJsonFile(contacts, writer);
-                }
-                else
-                {
-                    Console.Out.Write("Unrecognized format: " + format);
-                }
-                writer.Close();
             }
             
         }

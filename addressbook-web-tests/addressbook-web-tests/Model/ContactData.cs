@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace addressbook_web_tests
 {
@@ -68,7 +69,7 @@ namespace addressbook_web_tests
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
-        public string Mail { get; set; }
+        public string Mail { get; set; } 
         public string Mail2 { get; set; }
         public string Mail3 { get; set; }
 
@@ -91,6 +92,8 @@ namespace addressbook_web_tests
                 allPhones = value;
             }
         }
+
+       
         public string SuperFields
         {
             get
@@ -102,7 +105,7 @@ namespace addressbook_web_tests
                 else
                 {                   
                     return Firstname +" "+ PasteIn(Lastname) + PasteIn(Address) + "\r\n" + PasteIn(HomePhone).Insert(0, "H: ") + 
-                        PasteIn(MobilePhone).Insert(0, "M: ") + PasteIn(WorkPhone).Insert(0,"W: ")+ "\r\n" + PasteIn(Mail) + PasteIn(Mail2) + Mail3.Trim();
+                        PasteIn(MobilePhone).Insert(0, "M: ") + PasteIn(WorkPhone).Insert(0,"W: ")+ "\r\n" + PasteIn(Mail) + PasteIn(Mail2) + Mail3?.Trim();
                 }
             }
             set
