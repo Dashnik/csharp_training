@@ -146,6 +146,7 @@ namespace addressbook_web_tests
 
         public GroupHelper CheckEmptyGroup()
         {
+            driver.FindElement(By.LinkText("groups")).Click();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
             int quantityelements = elements.Count();

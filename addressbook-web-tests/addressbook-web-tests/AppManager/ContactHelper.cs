@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
@@ -17,6 +18,7 @@ namespace addressbook_web_tests
 
         public ContactHelper CheckEmptyContact()
         {
+            driver.FindElement(By.LinkText("home")).Click();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
 
             int quantityelements = elements.Count();
@@ -29,15 +31,60 @@ namespace addressbook_web_tests
             }
             return this;
         }
-         
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            SelectGroupFromFilter(group.Name);
+            ChooseContactOnMainPage(contact.Id);
+            RemoveContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }       
+
+        private void SelectGroupFromFilter(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+       
+        private void RemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+            ClearGroupFilter();
+            ChooseContactOnMainPage(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver,TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
         public string  GetInformationFromProperties(int index)
         {
             driver.FindElement(By.LinkText("home")).Click();
             InitContactProperties(index);
             string alltext = driver.FindElement(By.Id("content")).Text;
-
-            return alltext;//alltext.Replace("M:", "").Replace("W:", "").Replace("H:", "").Replace("\r\n","").Replace(" ",""); 
-                    
+            return alltext;                     
         }
 
         public void InitContactProperties(int index)
@@ -208,9 +255,7 @@ namespace addressbook_web_tests
         }
 
         public ContactHelper EditContact(ContactData contact, ContactData contactData)
-        {
-
-            // ChooseLineForEditing(contact.Id); original row
+        {            
             ChooseLineForEditing(contact.Id);
             FillDataForContact(contactData);
             driver.FindElement(By.Name("update")).Click();

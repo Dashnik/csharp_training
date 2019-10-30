@@ -13,5 +13,6 @@ namespace addressbook_web_tests
 
         public ITable<GroupData> Groups { get { return GetTable<GroupData>(); } }//метод возвращает таблицу данных GroupData
         public ITable<ContactData> Contacts { get { return GetTable<ContactData>(); } }////метод возвращает таблицу данных ContactData
+        public ITable<GroupContactRelation> GCR { get { return GetTable<GroupContactRelation>(); } }
     }
 }
