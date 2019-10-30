@@ -18,7 +18,7 @@ namespace addressbook_web_tests
             app.Navi.Gotothegrouppage();
             List<GroupData> oldgroups = GroupData.GetAll();
             GroupData oldData = oldgroups[0];
-            GroupData newData = new GroupData("abracadabra");
+            GroupData newData = new GroupData("abracadabra-test");
             app.Groups.CheckEmptyGroup();
 
             //app.Groups.EditGroup(0, newData);//original row

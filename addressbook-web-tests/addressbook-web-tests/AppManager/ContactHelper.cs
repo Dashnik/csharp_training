@@ -144,9 +144,14 @@ namespace addressbook_web_tests
             Type(By.Name("firstname"), contactData.Firstname);
             Type(By.Name("lastname"), contactData.Lastname);
 
-            driver.FindElement(By.Name("submit")).Click();
+            //driver.FindElement(By.Name("submit")).Click();
             contactCache = null;
             return this;
+        }
+
+        public void  SubmitEnterButtonOnAddNewContact()
+        {
+            driver.FindElement(By.Name("submit")).Click();
         }
 
         public ContactHelper RemoveContactMainPage(int index)
@@ -181,27 +186,40 @@ namespace addressbook_web_tests
 
         //this case for modification contac test and get old and new data
         public ContactHelper ChooseLineForEditing(int y)
-
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
             return this;
         }
 
-        
+        public ContactHelper ChooseLineForEditing(String id)
+        {            
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
+            driver.FindElement(By.XPath("//td[@class='center']//a[@href='edit.php?id=" + id + "']")).Click();
+            return this;
+        }
 
-
-
-        public ContactHelper EditContact(ContactData contact)
+        public ContactHelper EditContact(int line, ContactData contact)
         {
-            Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("lastname"), contact.Lastname);
+            ChooseLineForEditing(line);
+            FillDataForContact(contact);
             driver.FindElement(By.Name("update")).Click();
             contactCache = null;
             return this;
+        }
 
+        public ContactHelper EditContact(ContactData contact, ContactData contactData)
+        {
+
+            // ChooseLineForEditing(contact.Id); original row
+            ChooseLineForEditing(contact.Id);
+            FillDataForContact(contactData);
+            driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
+            return this;
         }
 
        
+
 
     }
 }

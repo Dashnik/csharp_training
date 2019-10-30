@@ -74,9 +74,7 @@ namespace addressbook_web_tests
         {
             ChooseGroupLine(number);
             driver.FindElement(By.Name("edit")).Click();
-            Type(By.Name("group_name"), group.Name);
-            Type(By.Name("group_header"), group.Header);
-            Type(By.Name("group_footer"), group.Footer);
+            FillnewGroup(group);
             driver.FindElement(By.Name("update")).Click();
             groupCache = null;
             return this;
@@ -87,9 +85,7 @@ namespace addressbook_web_tests
         {
             ChooseGroupLine(group.Id);
             driver.FindElement(By.Name("edit")).Click();
-            Type(By.Name("group_name"), newData.Name);
-            Type(By.Name("group_header"), newData.Header);
-            Type(By.Name("group_footer"), newData.Footer);
+            FillnewGroup(newData);
             driver.FindElement(By.Name("update")).Click();
             groupCache = null;
             return this;
@@ -161,7 +157,6 @@ namespace addressbook_web_tests
                 Submitgroupcreation();
                 driver.FindElement(By.LinkText("groups")).Click();
             }
-
             return this;
         }
 

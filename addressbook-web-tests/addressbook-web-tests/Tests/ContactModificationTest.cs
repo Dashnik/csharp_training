@@ -17,11 +17,12 @@ namespace addressbook_web_tests
         public void ContactModificationTest()
         {
             app.Navi.OpenContactPage();
-            List<ContactData> oldcontacts = app.contacts.GetContactList();
-            ContactData newData = new ContactData("Capitan", "America");
+            List<ContactData> oldcontacts = ContactData.GetAll();
+            ContactData oldData = oldcontacts[0];
+            ContactData newData = new ContactData("Test", "Test2");
             app.contacts.CheckEmptyContact();
-            app.contacts.ChooseLineForEditing(0);
-            app.contacts.EditContact(newData);
+            //app.contacts.EditContact(0,newData); //original row
+            app.contacts.EditContact(oldData, newData);
 
             List<ContactData> newcontacts = app.contacts.GetContactList();
             oldcontacts[0].Firstname = newData.Firstname;
@@ -30,7 +31,16 @@ namespace addressbook_web_tests
             oldcontacts.Sort();
             newcontacts.Sort();
             Assert.AreEqual(oldcontacts, newcontacts);
-            
+
+            foreach (ContactData contact in newcontacts)
+            {
+                if (contact.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Firstname, contact.Firstname);
+                    Assert.AreEqual(newData.Lastname, contact.Lastname);
+                }
+            }
+
         }
     }
 }

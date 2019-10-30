@@ -51,6 +51,7 @@ namespace addressbook_web_tests
             app.Navi.GoToContact();
        
             app.contacts.FillDataForContact(contact);
+            app.contacts.SubmitEnterButtonOnAddNewContact();
             List<ContactData> newcontacts = ContactData.GetAll();
             oldcontacts.Add(contact);
             oldcontacts.Sort();
