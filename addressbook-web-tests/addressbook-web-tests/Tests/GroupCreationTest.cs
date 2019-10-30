@@ -63,7 +63,7 @@ namespace addressbook_web_tests
         public void GroupCreationTest(GroupData group)
         {
             app.Navi.Gotothegrouppage();
-            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            List<GroupData> oldgroups = GroupData.GetAll();
 
             app.Groups.NewGroupCreation();
             app.Groups.FillnewGroup(group);
@@ -73,7 +73,7 @@ namespace addressbook_web_tests
             //это медленная проверка, чтобы в случае ошибки не выполнять быструю
             Assert.AreEqual(oldgroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newgroups = app.Groups.GetGroupList();
+            List<GroupData> newgroups = GroupData.GetAll();
             oldgroups.Add(group);
             oldgroups.Sort();
             newgroups.Sort();

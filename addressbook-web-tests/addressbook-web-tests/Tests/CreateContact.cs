@@ -46,12 +46,12 @@ namespace addressbook_web_tests
         [Test,TestCaseSource("ContactDataFromJsonFile")]
         public void CreateContact(ContactData contact)
         {
-           
-            List<ContactData> oldcontacts = app.contacts.GetContactListTest();
+
+            List<ContactData> oldcontacts = ContactData.GetAll();
             app.Navi.GoToContact();
        
             app.contacts.FillDataForContact(contact);
-            List<ContactData> newcontacts = app.contacts.GetContactListTest();
+            List<ContactData> newcontacts = ContactData.GetAll();
             oldcontacts.Add(contact);
             oldcontacts.Sort();
             newcontacts.Sort();
