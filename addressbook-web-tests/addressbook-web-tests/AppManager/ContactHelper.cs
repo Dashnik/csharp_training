@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
@@ -18,7 +17,7 @@ namespace addressbook_web_tests
 
         public ContactHelper CheckEmptyContact()
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
 
             int quantityelements = elements.Count();
@@ -34,7 +33,7 @@ namespace addressbook_web_tests
 
         public void RemoveContactFromGroup(ContactData contact, GroupData group)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             SelectGroupFromFilter(group.Name);
             ChooseContactOnMainPage(contact.Id);
             RemoveContactFromGroup();
@@ -55,7 +54,7 @@ namespace addressbook_web_tests
 
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             ClearGroupFilter();
             ChooseContactOnMainPage(contact.Id);
             SelectGroupToAdd(group.Name);
@@ -81,7 +80,7 @@ namespace addressbook_web_tests
 
         public string  GetInformationFromProperties(int index)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             InitContactProperties(index);
             string alltext = driver.FindElement(By.Id("content")).Text;
             return alltext;                     
@@ -96,7 +95,7 @@ namespace addressbook_web_tests
 
         public ContactData GetContactInformationFromEditForm(int index)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             ChooseLineForEditing(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
@@ -125,7 +124,7 @@ namespace addressbook_web_tests
 
         public ContactData GetInformationFromTable(int index)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"));
             string lastname = cells[1].Text;
@@ -146,7 +145,7 @@ namespace addressbook_web_tests
 
         public List<ContactData> GetContactList()
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             List<ContactData> contacts = new List<ContactData>();
             ICollection<IWebElement> elements = driver.FindElements(By.TagName("tr"));
             foreach (IWebElement element  in elements.Skip(1))
@@ -168,7 +167,7 @@ namespace addressbook_web_tests
             if (contactCache == null)
             {
                 contactCache = new List<ContactData>();
-                driver.FindElement(By.LinkText("home")).Click();
+                OpenHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.TagName("tr"));
                 foreach (IWebElement element in elements.Skip(1))
                 {
@@ -179,19 +178,15 @@ namespace addressbook_web_tests
                     ContactData contact = new ContactData(lastcell.Text, firstcell.Text);
                     contactCache.Add(contact);
                 }
-            }
-           
+            }           
             return new List<ContactData>(contactCache);
         }
 
 
         public ContactHelper FillDataForContact(ContactData contactData)
         {
-
             Type(By.Name("firstname"), contactData.Firstname);
-            Type(By.Name("lastname"), contactData.Lastname);
-
-            //driver.FindElement(By.Name("submit")).Click();
+            Type(By.Name("lastname"), contactData.Lastname);                        
             contactCache = null;
             return this;
         }
@@ -261,10 +256,6 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("update")).Click();
             contactCache = null;
             return this;
-        }
-
-       
-
-
+        }    
     }
 }

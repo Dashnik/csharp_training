@@ -20,6 +20,10 @@ namespace addressbook_web_tests
         {
             app = ApplicationManager.GetInstance();
         }
+        public void OpenHomePage()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+        }
 
         public static Random rnd = new Random();
 
