@@ -13,7 +13,7 @@ using Newtonsoft.Json;//юзинг позволяет работать с json
 namespace addressbook_web_tests 
 {
     [TestFixture]
-    public class CreateContacts : AuthTestBase
+    public class CreateContacts : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {

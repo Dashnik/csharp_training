@@ -13,7 +13,7 @@ namespace addressbook_web_tests
 
 {
 
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
