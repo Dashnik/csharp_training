@@ -70,9 +70,9 @@ namespace addressbook_web_tests
 
 
 
-        public GroupHelper EditGroup(GroupData group)
+        public GroupHelper EditGroup(int number, GroupData group)
         {
-
+            ChooseGroupLine(number);
             driver.FindElement(By.Name("edit")).Click();
             Type(By.Name("group_name"), group.Name);
             Type(By.Name("group_header"), group.Header);
@@ -80,7 +80,19 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("update")).Click();
             groupCache = null;
             return this;
+        }
 
+
+        public GroupHelper EditGroup (GroupData group, GroupData newData)
+        {
+            ChooseGroupLine(group.Id);
+            driver.FindElement(By.Name("edit")).Click();
+            Type(By.Name("group_name"), newData.Name);
+            Type(By.Name("group_header"), newData.Header);
+            Type(By.Name("group_footer"), newData.Footer);
+            driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
+            return this;
         }
 
 
@@ -126,6 +138,7 @@ namespace addressbook_web_tests
 
             return this;
         }
+       
 
         public GroupHelper NewGroupCreation()
         {
