@@ -31,6 +31,9 @@ namespace Mantis_tests
                 Email = "test@localhost.ru",
             };
 
+
+            app.James.Delete(account);
+            app.James.Add(account);
             app.Registration.Register(account);
 
         }

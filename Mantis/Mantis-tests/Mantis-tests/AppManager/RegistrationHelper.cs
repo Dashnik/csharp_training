@@ -24,10 +24,9 @@ namespace Mantis_tests
 
         private void OpenRegistrationForm()
         {
-            driver.FindElement(By.XPath("//div[@id='login-box']/div/div[2]/a")).Click();
-           // driver.FindElement(By.LinkText("Signup for a new account")).Click();
-            //   driver.FindElement(By.LinkText("Signup for a new account")).Click();
-            //   driver.FindElements(By.CssSelector("span.bracket-link"))[0].Click();
+           
+              driver.FindElement(By.LinkText("Signup for a new account")).Click();
+          
         }
 
         private void SubmitRegistration()
