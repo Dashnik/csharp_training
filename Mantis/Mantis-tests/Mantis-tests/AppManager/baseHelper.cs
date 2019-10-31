@@ -17,7 +17,7 @@ namespace Mantis_tests
         public BaseHelper(ApplicationManager manager)
         {
             this.manager = manager;
-           //this.driver = driver;
+           driver = manager.driver;
         }
 
         public void Type(By locator, string text)
