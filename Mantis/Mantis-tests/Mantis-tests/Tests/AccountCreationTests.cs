@@ -26,7 +26,7 @@ namespace Mantis_tests
         public void TestAccountRegistration()
         {
             AccountData account = new AccountData() {
-                Name = "testuser",
+                Name = "testuser10",
                 //Password = "password",
                 Email = "test@localhost.ru",
             };
