@@ -9,22 +9,24 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    class GroupRemovalTests : AuthTestBase
+    class GroupRemovalTests : GroupTestBase
     {
         [Test]
         public void GroupRemovalTest()
         {
             app.Navi.Gotothegrouppage();
-            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            List<GroupData> oldgroups = GroupData.GetAll();
+            GroupData tobeRemoved = oldgroups[0];
+
             app.Groups.CheckEmptyGroup();
-            app.Groups.GroupLine(0)
-            .RemoveGroup();
+            app.Groups.RemoveGroup(tobeRemoved);
             //ниже реализуется быстрая проверка на то, есть ли смысл тратить время на более сложную проверку
             //это медленная проверка, чтобы в случае ошибки не выполнять быструю
             Assert.AreEqual(oldgroups.Count - 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newgroups = app.Groups.GetGroupList();
-            GroupData toBeRemoved = oldgroups[0];
+            List<GroupData> newgroups = GroupData.GetAll();
+
+
             oldgroups.RemoveAt(0);
             oldgroups.Sort();
             newgroups.Sort();
@@ -34,7 +36,7 @@ namespace addressbook_web_tests
 
             foreach (GroupData group in newgroups)
             {
-                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+                Assert.AreNotEqual(group.Id, tobeRemoved.Id);
             }
         }
     }

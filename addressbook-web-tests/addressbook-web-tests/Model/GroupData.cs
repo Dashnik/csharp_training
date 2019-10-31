@@ -8,9 +8,11 @@ using LinqToDB.Mapping;// позволяет работать с аттрибу�
 namespace addressbook_web_tests
 {
     [Table(Name = "group_list")]
+    
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
-
+       
+        
         public GroupData()
         {            
         }
@@ -69,9 +71,21 @@ namespace addressbook_web_tests
             using (//в этой конструкции юзинга db.close вызывается автоматически, т.о. мы уменьшаем количество кода
               AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Groups select g).ToList();
+                return (from g in db.Groups select g).Distinct().ToList();
             }
         }
 
+
+        public List<ContactData> GetContacts()
+        {
+            using (//в этой конструкции юзинга db.close вызывается автоматически, т.о. мы уменьшаем количество кода
+              AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts
+                        from gcr in db.GCR.Where(p=>p.GroupId == Id
+                        && p.ContactId == c.Id && c.Depricated == "0000-00-00 00:00:00")
+                        select c).ToList();
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace addressbook_web_tests
 
 {
 
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -63,7 +63,7 @@ namespace addressbook_web_tests
         public void GroupCreationTest(GroupData group)
         {
             app.Navi.Gotothegrouppage();
-            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            List<GroupData> oldgroups = GroupData.GetAll();
 
             app.Groups.NewGroupCreation();
             app.Groups.FillnewGroup(group);
@@ -73,7 +73,7 @@ namespace addressbook_web_tests
             //это медленная проверка, чтобы в случае ошибки не выполнять быструю
             Assert.AreEqual(oldgroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newgroups = app.Groups.GetGroupList();
+            List<GroupData> newgroups = GroupData.GetAll();
             oldgroups.Add(group);
             oldgroups.Sort();
             newgroups.Sort();
@@ -83,18 +83,22 @@ namespace addressbook_web_tests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUI = app.Groups.GetGroupList();
-            DateTime end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+            //DateTime start = DateTime.Now;
+            //List<GroupData> fromUI = app.Groups.GetGroupList();
+            //DateTime end = DateTime.Now;
+            //System.Console.Out.WriteLine(end.Subtract(start));
 
-             start = DateTime.Now;
-            List<GroupData> fromDb = GroupData.GetAll();
-                //AddressBookDB db = new AddressBookDB();
-                //List<GroupData> fromDb = (from g in db.Groups select g).ToList();
-                //db.Close();
-                end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+            // start = DateTime.Now;
+            //List<GroupData> fromDb = GroupData.GetAll();
+            //    //AddressBookDB db = new AddressBookDB();
+            //    //List<GroupData> fromDb = (from g in db.Groups select g).ToList();
+            //    //db.Close();
+            //    end = DateTime.Now;
+            //System.Console.Out.WriteLine(end.Subtract(start));
+            foreach (ContactData contact in  GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
         }
 
     }

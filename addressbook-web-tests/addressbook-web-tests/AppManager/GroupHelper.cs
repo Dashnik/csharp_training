@@ -25,6 +25,8 @@ namespace addressbook_web_tests
 
         private List<GroupData> groupCache = null;
 
+        
+
         public List<GroupData> GetGroupList()
         {
             if (groupCache == null)
@@ -68,17 +70,25 @@ namespace addressbook_web_tests
 
 
 
-        public GroupHelper EditGroup(GroupData group)
+        public GroupHelper EditGroup(int number, GroupData group)
         {
-
+            ChooseGroupLine(number);
             driver.FindElement(By.Name("edit")).Click();
-            Type(By.Name("group_name"), group.Name);
-            Type(By.Name("group_header"), group.Header);
-            Type(By.Name("group_footer"), group.Footer);
+            FillnewGroup(group);
             driver.FindElement(By.Name("update")).Click();
             groupCache = null;
             return this;
+        }
 
+
+        public GroupHelper EditGroup (GroupData group, GroupData newData)
+        {
+            ChooseGroupLine(group.Id);
+            driver.FindElement(By.Name("edit")).Click();
+            FillnewGroup(newData);
+            driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
+            return this;
         }
 
 
@@ -92,21 +102,39 @@ namespace addressbook_web_tests
 
 
 
-        public GroupHelper RemoveGroup()
-        {
-
+        public GroupHelper RemoveGroup(int x)
+        {            
+            ChooseGroupLine(x);
             driver.FindElement(By.Name("delete")).Click();
             groupCache = null;
             return this;
         }
 
-        public GroupHelper GroupLine(int x)
+        public GroupHelper RemoveGroup(GroupData groups)
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
+            ChooseGroupLine(groups.Id);
+            driver.FindElement(By.Name("delete")).Click();
+            groupCache = null;
+            return this;
+        }
+
+        public GroupHelper ChooseGroupLine(int x)
         {
 
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (x + 1) + "]")).Click();
 
             return this;
         }
+
+        public GroupHelper ChooseGroupLine(String id)
+        {
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
+
+            return this;
+        }
+       
 
         public GroupHelper NewGroupCreation()
         {
@@ -118,6 +146,7 @@ namespace addressbook_web_tests
 
         public GroupHelper CheckEmptyGroup()
         {
+            driver.FindElement(By.LinkText("groups")).Click();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
             int quantityelements = elements.Count();
@@ -129,7 +158,6 @@ namespace addressbook_web_tests
                 Submitgroupcreation();
                 driver.FindElement(By.LinkText("groups")).Click();
             }
-
             return this;
         }
 

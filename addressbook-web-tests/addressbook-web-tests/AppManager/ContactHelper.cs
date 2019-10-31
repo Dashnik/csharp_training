@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
@@ -17,6 +17,7 @@ namespace addressbook_web_tests
 
         public ContactHelper CheckEmptyContact()
         {
+            OpenHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
 
             int quantityelements = elements.Count();
@@ -29,15 +30,60 @@ namespace addressbook_web_tests
             }
             return this;
         }
-         
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            OpenHomePage();
+            SelectGroupFromFilter(group.Name);
+            ChooseContactOnMainPage(contact.Id);
+            RemoveContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }       
+
+        private void SelectGroupFromFilter(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+       
+        private void RemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            OpenHomePage();
+            ClearGroupFilter();
+            ChooseContactOnMainPage(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver,TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
         public string  GetInformationFromProperties(int index)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             InitContactProperties(index);
             string alltext = driver.FindElement(By.Id("content")).Text;
-
-            return alltext;//alltext.Replace("M:", "").Replace("W:", "").Replace("H:", "").Replace("\r\n","").Replace(" ",""); 
-                    
+            return alltext;                     
         }
 
         public void InitContactProperties(int index)
@@ -49,7 +95,7 @@ namespace addressbook_web_tests
 
         public ContactData GetContactInformationFromEditForm(int index)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             ChooseLineForEditing(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
@@ -78,7 +124,7 @@ namespace addressbook_web_tests
 
         public ContactData GetInformationFromTable(int index)
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"));
             string lastname = cells[1].Text;
@@ -99,7 +145,7 @@ namespace addressbook_web_tests
 
         public List<ContactData> GetContactList()
         {
-            driver.FindElement(By.LinkText("home")).Click();
+            OpenHomePage();
             List<ContactData> contacts = new List<ContactData>();
             ICollection<IWebElement> elements = driver.FindElements(By.TagName("tr"));
             foreach (IWebElement element  in elements.Skip(1))
@@ -121,7 +167,7 @@ namespace addressbook_web_tests
             if (contactCache == null)
             {
                 contactCache = new List<ContactData>();
-                driver.FindElement(By.LinkText("home")).Click();
+                OpenHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.TagName("tr"));
                 foreach (IWebElement element in elements.Skip(1))
                 {
@@ -132,65 +178,84 @@ namespace addressbook_web_tests
                     ContactData contact = new ContactData(lastcell.Text, firstcell.Text);
                     contactCache.Add(contact);
                 }
-            }
-           
+            }           
             return new List<ContactData>(contactCache);
         }
 
 
         public ContactHelper FillDataForContact(ContactData contactData)
         {
-
             Type(By.Name("firstname"), contactData.Firstname);
-            Type(By.Name("lastname"), contactData.Lastname);
-
-            driver.FindElement(By.Name("submit")).Click();
+            Type(By.Name("lastname"), contactData.Lastname);                        
             contactCache = null;
             return this;
+        }
+
+        public void  SubmitEnterButtonOnAddNewContact()
+        {
+            driver.FindElement(By.Name("submit")).Click();
         }
 
         public ContactHelper RemoveContactMainPage(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+ (index+2) +"]/td/input")).Click();     //driver.SwitchTo().Alert().Accept();
+            ChooseContactOnMainPage(index);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             contactCache = null;
             return this;
-
         }
 
-
-        public ContactHelper ChooseLineForRemoving(int index)
-
+        public ContactHelper RemoveContactMainPage(ContactData contacts)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 1) + "]/td/input")).Click();
+            ChooseContactOnMainPage(contacts.Id);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            contactCache = null;
             return this;
         }
 
+        public ContactHelper ChooseContactOnMainPage(int index)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td/input")).Click();     //driver.SwitchTo().Alert().Accept();
+            return this;
+        }
 
+        public ContactHelper ChooseContactOnMainPage(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
 
+        //this case for modification contac test and get old and new data
         public ContactHelper ChooseLineForEditing(int y)
-
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (y + 1) + "]")).Click();
             return this;
         }
 
+        public ContactHelper ChooseLineForEditing(String id)
+        {            
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
+            driver.FindElement(By.XPath("//td[@class='center']//a[@href='edit.php?id=" + id + "']")).Click();
+            return this;
+        }
 
-
-        public ContactHelper EditContact(ContactData contact)
+        public ContactHelper EditContact(int line, ContactData contact)
         {
-            Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("lastname"), contact.Lastname);
+            ChooseLineForEditing(line);
+            FillDataForContact(contact);
             driver.FindElement(By.Name("update")).Click();
             contactCache = null;
             return this;
-
         }
 
-       
-
+        public ContactHelper EditContact(ContactData contact, ContactData contactData)
+        {            
+            ChooseLineForEditing(contact.Id);
+            FillDataForContact(contactData);
+            driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
+            return this;
+        }    
     }
 }

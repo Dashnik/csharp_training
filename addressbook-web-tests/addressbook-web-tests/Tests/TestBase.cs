@@ -13,11 +13,16 @@ namespace addressbook_web_tests
     {
 
         protected ApplicationManager app;
-
+        public static bool PERFORM_LONG_UI_CHECKS_GROUPS = false;
+        public static bool PERFORM_LONG_UI_CHECKS_CONTACTS = true;
         [SetUp]
         protected void SetupApplicationManager()
         {
             app = ApplicationManager.GetInstance();
+        }
+        public void OpenHomePage()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
         }
 
         public static Random rnd = new Random();

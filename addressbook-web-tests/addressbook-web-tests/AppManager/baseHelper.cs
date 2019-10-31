@@ -26,6 +26,12 @@ namespace addressbook_web_tests
 
         }
 
+        public void OpenHomePage()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+        }
+
+
         public bool IsElementPresent(By by)
         {
             try
