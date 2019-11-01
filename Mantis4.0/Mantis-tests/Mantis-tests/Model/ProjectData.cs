@@ -9,6 +9,7 @@ namespace Mantis_tests
     public class ProjectData :IEquatable<ProjectData>, IComparable<ProjectData>
     {
         public string Name { get; set; }
+        public string Id { get;  set; }
 
         public ProjectData() { }
 

@@ -23,11 +23,12 @@ namespace Mantis_tests
 
             return contacts;
         }
+
         [Test, TestCaseSource("RandomProjectDataProvider")]
 
         public void CreateProject(ProjectData project)
         {
-            List<ProjectData> oldProjects =  app.Project.GetProjectList();
+            List<ProjectData> oldProjects = app.Project.GetProjectList();
             app.Project.AddProject(project);
             Assert.AreEqual(oldProjects.Count + 1, app.Project.GetProjectCount());
 
@@ -38,5 +39,20 @@ namespace Mantis_tests
 
             Assert.AreEqual(oldProjects, newProjects);
         }
+        //[Test, TestCaseSource("RandomProjectDataProvider")]
+
+        //public void CreateProject(ProjectData project)
+        //{
+        //    List<ProjectData> oldProjects =  app.Project.GetProjectList();
+        //    app.Project.AddProject(project);
+        //    Assert.AreEqual(oldProjects.Count + 1, app.Project.GetProjectCount());
+
+        //    List<ProjectData> newProjects = app.Project.GetProjectList();
+        //    oldProjects.Add(project);
+        //    oldProjects.Sort();
+        //    newProjects.Sort();
+
+        //    Assert.AreEqual(oldProjects, newProjects);
+        //}
     }
 }

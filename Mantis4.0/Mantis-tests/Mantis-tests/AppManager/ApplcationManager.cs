@@ -24,6 +24,7 @@ namespace Mantis_tests
         internal MailHelper Mail { get; set; }
         public ProjectHelper Project { get; set;}
         public ManagementMenuHelper ManagementMenu { get;  set; }
+        public APIHelper API { get; set;}
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -38,6 +39,7 @@ namespace Mantis_tests
             Mail = new MailHelper(this);
             Project = new ProjectHelper(this);
             ManagementMenu = new ManagementMenuHelper(this, baseURL);
+            API = new APIHelper(this);
             
         }
 
