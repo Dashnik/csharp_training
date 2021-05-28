@@ -1,1 +1,1 @@
-# csharp_training
+# Education in UI auto tests(C#+Selenium) 
